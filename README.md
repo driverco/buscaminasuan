@@ -1,11 +1,11 @@
-#Proyecto Buscaminas UAN
-Universidad Antonio Nariño
-Ingenieria de software 2 - 2019 I
+##Proyecto Buscaminas UAN
+Universidad Antonio Nariño <br />
+Ingeniería de software 2 - 2019 I
 
 ## Colaboradores
-Diana Paola Rincón Montaña
-Mónica Alejandra Parra Murcia
-Juan Sebastián Valencia Londoño
+Diana Paola Rincón Montaña<br />
+Mónica Alejandra Parra Murcia<br />
+Juan Sebastián Valencia Londoño<br />
 Wilmer Rodriguez Camargo
 
 ## Datos del proyecto
