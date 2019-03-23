@@ -1,0 +1,32 @@
+{
+    "boards":[
+        {   "size":"small",
+            "width":10,
+            "height":10,
+            "levels":{
+                "easy":10,
+                "medium":20,
+                "hard":30
+            }
+        },
+        {   "size":"medium",
+            "width":20,
+            "height":15,
+            "levels":{
+                "easy":10,
+                "medium":20,
+                "hard":30
+
+            }
+        },
+        {   "size":"massive",
+            "width":25,
+            "height":20,
+            "levels":{
+                "easy":10,
+                "medium":20,
+                "hard":30
+            }
+        }
+    ]
+}
