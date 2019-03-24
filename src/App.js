@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import SelectBoard from './components/selectBoards';
+import SelectBoard from './components/SelectBoard';
 //import { boards} from './levels.json';
 
 class App extends Component {

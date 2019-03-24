@@ -23,14 +23,3 @@ body {
   text-align:left;
   background-color: #B3B7EE;
   }
-.board{
-  width: 25%;
-}
-.tabledemo{
-  margin:0px auto;
-}
-.celldemo{
-  border: 1px solid #24243e;
-  width: 5px;
-  height: 5px;
-}

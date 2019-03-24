@@ -1,4 +1,4 @@
-##Proyecto Buscaminas UAN
+Proyecto Buscaminas UAN <br />
 Universidad Antonio Nariño <br />
 Ingeniería de software 2 - 2019 I
 
@@ -6,7 +6,7 @@ Ingeniería de software 2 - 2019 I
 Diana Paola Rincón Montaña<br />
 Mónica Alejandra Parra Murcia<br />
 Juan Sebastián Valencia Londoño<br />
-Wilmer Rodriguez Camargo
+Wilmer Rodríguez Camargo
 
 ## Datos del proyecto
 
