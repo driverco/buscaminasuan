@@ -13,9 +13,9 @@ class BoardCard extends Component {
                     tamaño: {this.props.board.width} x {this.props.board.height}
                 </div>
                 <div className="row row-centered">
-                    <table className="tabledemo">
+                    <table className="tabledemo"><tbody>
                         {this.createTable(this.props.board.width, this.props.board.height)}
-                    </table>
+                    </tbody></table>
                 </div>
             </div>
         )

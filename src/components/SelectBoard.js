@@ -18,7 +18,7 @@ class SelectBoard extends Component {
         });
           
         return(
-            <div>
+            <div className="text-center" >
                 <h1 className=" h1 ">Buscaminas UAN</h1><br />
                 <span className="text-center">Primero, Selecciona el tamaño del tablero</span>
                 <div className="row row-centered" >
