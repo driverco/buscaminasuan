@@ -6,14 +6,14 @@ import { Link } from 'react-router-dom';
 
 // Assets
 
+import './Header.css';
 class Header extends Component {
   static propTypes = {
-    title: PropTypes.string.isRequired,
     items: PropTypes.array.isRequired
   };
 
   render() {
-    const { title, items } = this.props;
+    const { items } = this.props;
 
     return (
       <div className="Header">
@@ -21,8 +21,8 @@ class Header extends Component {
            <nav className ="navbar navbar-dark bg-dark">
             {
               items && items.map(
-                (item, key) => /*<li key={key}>*/<Link to={item.url}>{item.title}</Link> 
-              )
+                (item, key) => <div className="menuItem"><Link to={item.url}><i className="material-icons icon">{item.icon}</i>{item.title}</Link></div>              
+                )
             }
 
           </nav> 
