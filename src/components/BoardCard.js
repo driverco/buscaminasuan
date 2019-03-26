@@ -1,11 +1,20 @@
 import React, { Component }  from 'react';
+import ReactDOM from 'react-dom';
+import BoardLevels from './BoardLevels';
 import './BoardCard.css';
 
 class BoardCard extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            visible: true
+            };
+        this.showLevels = this.showLevels.bind(this);
+    }
     render(){
         return(
-            <div className="card col-centered ml-4 boardcard p-3"  >
+            <div className="card col-centered ml-4 boardcard p-3" onClick={() => this.showLevels(this.props.board.size, this.props.board.levels)} >
                 <div className=" card-title text-center colorDark">
                     <h2>{this.props.board.size}</h2>
                 </div>
@@ -20,7 +29,21 @@ class BoardCard extends Component {
             </div>
         )
     }
+    showLevels(size, levels) {
 
+      const { visible } = this.state;
+      this.props.visibleParent(!visible);
+      this.setState({
+        visible: !visible
+      });
+      if(visible){
+        ReactDOM.render(
+            <BoardLevels size= {size} easy={levels.easy} medium={levels.medium} hard={levels.hard} />,
+            document.getElementById('selectLevel')
+          );
+      }
+    
+    }
     /* Crear tabla de muestra*/
     createTable = (width, height) => {
         let table = []
