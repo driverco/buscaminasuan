@@ -12,7 +12,7 @@ class Content extends Component {
     const { body } = this.props;
 
     return (
-      <div className="Content">
+      <div className="Content" id="Content">
         {body}
       </div>
     );

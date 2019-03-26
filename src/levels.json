@@ -13,9 +13,9 @@
             "width":20,
             "height":15,
             "levels":{
-                "easy":10,
-                "medium":20,
-                "hard":30
+                "easy":20,
+                "medium":35,
+                "hard":50
 
             }
         },
@@ -23,9 +23,9 @@
             "width":25,
             "height":20,
             "levels":{
-                "easy":10,
-                "medium":20,
-                "hard":30
+                "easy":30,
+                "medium":60,
+                "hard":100
             }
         }
     ]

@@ -7,6 +7,7 @@ import Home from './components/Home';
 import RegisterUser from './components/RegisterUser';
 import Login from './components/Login';
 import Page404 from './components/Page404';
+import Stats from './components/Stats';
 
 const AppRoutes = () => 
 <App>
@@ -18,6 +19,7 @@ const AppRoutes = () =>
         <Route exact path="/about" component = {About} />
         <Route exact path="/registerUser" component = {RegisterUser} />
         <Route exact path="/login" component = {Login} />
+        <Route exact path="/stats" component = {Stats} />
         <Route component = {Page404} />
     </Switch>
 </App>

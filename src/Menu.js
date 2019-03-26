@@ -1,22 +1,35 @@
 export default [
     {
         title: 'Home',
-        url:'/'
+        url:'/',
+        icon:'home'
     },
     {
-        title: 'About Us',
-        url:'/about'
+        title: 'Acerca de',
+        url:'/about',
+        icon:'business'
     },
     {
-        title: 'Select Board',
-        url:'/selectBoard'
+        title: 'Seleccionar Tablero',
+        url:'/selectBoard',
+        icon:'grid_on'
     },
     {
         title: 'Login',
-        url:'/login'
+        url:'/login',
+        icon:'account_circle'
+
     },
     {
-        title: 'Register',
-        url:'/registerUser'
+        title: 'Registrar',
+        url:'/registerUser',
+        icon: 'create'
+    },
+    {
+        title: 'Estadísticas',
+        url:'/stats',
+        icon:'equalizer'
+
     }
+    
 ]
