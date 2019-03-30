@@ -21,7 +21,7 @@ class Header extends Component {
            <nav className ="navbar navbar-dark bg-dark">
             {
               items && items.map(
-                (item, key) => <div className="menuItem"><Link to={item.url}><i className="material-icons icon">{item.icon}</i>{item.title}</Link></div>              
+                (item, key) => <div className="menuItem" key={"menu"+item.title}><Link to={item.url}><i className="material-icons icon">{item.icon}</i>{item.title}</Link></div>              
                 )
             }
 

@@ -1,6 +1,7 @@
 import React, { Component }  from 'react';
-import ReactDOM from 'react-dom';
-import BoardCard from '../components/BoardCard';
+import store from '../store';
+import BoardCard from './BoardCard';
+import BoardLevels from './BoardLevels';
 
 // data
 import { boards } from '../levels.json';
@@ -10,49 +11,49 @@ class SelectBoard extends Component {
         super();
         this.state = {
             boards,
-            visible:true
+            size:"none",
+            showLevels:false
           }
-          this.visibleParent = this.visibleParent;
-          this.renderBoard = this.renderBoard;
+        store.subscribe( () => {
+            this.setState({
+                showLevels: store.getState().SelectBoard.showLevels,
+                size:store.getState().SelectBoard.size
+            })
+        });
           
     }
-    visibleParent = (visible) => {
-        this.setState({ visible });
-        ReactDOM.render(
-            <span />,
-            document.getElementById('selectLevel')
-          );
-    }
+    componentDidMount() {
+        this.unsubscribe = store.subscribe(() => { });
+      }
+      componentWillUnmount() {
+        this.unsubscribe();
+      }
     render(){
   
         const boards = this.state.boards.map((board, i) => {
-            return (<BoardCard board={board} visibleParent={this.visibleParent } />)          
+            return (< BoardCard board={board} visibleParent={this.visibleParent } key ={"Board"+board.size} />)          
         });
           
-        const { visible } = this.state;
             return(
-                <div className="text-center"  >
-                    {this.renderBoard(visible, boards)}
+                <div className="text-center">
+                    <div id="selectBoard">
+
+                        <h1 className=" h1 ">Buscaminas UAN</h1><br />
+                        {!this.state.showLevels &&<span className="text-center">Primero, Selecciona el tamaño del tablero</span>}
+                        {this.state.showLevels &&<span className="text-center">Seleccionaste tablero <span className="badge badge-info">{this.state.size}</span><br /> Ahora Selecciona El Nivel</span>}
+                        <div className="row row-centered" >
+                            {boards}
+                        </div>
+                    </div>
+
                     <div id="selectLevel">
+                        <BoardLevels />
                     </div>
                 </div>
             )
 
     }
-    renderBoard = (visible, boards)=>{
-        if( visible){
-            return ( <div id="selectBoard">
-            <h1 className=" h1 ">Buscaminas UAN</h1><br />
-            <span className="text-center">Primero, Selecciona el tamaño del tablero</span>
-            <div className="row row-centered" >
-            {boards}
-            </div>
-        </div>);
-        } else{
-            return(
-                <button type="button" className="btn btn-primary btn-lg" onClick={()=>this.visibleParent(true)}>Volver a Seleccionar tablero</button>
-            );
-        }
-    }
 }
+
+
 export default SelectBoard;

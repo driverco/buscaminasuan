@@ -1,76 +1,99 @@
 import React, { Component }  from 'react';
-import ReactDOM from 'react-dom';
-import Scene from './Scene';
+import { withRouter } from 'react-router-dom';
 import './BoardLevels.css';
+import store from '../store';
+import { toggleLevels as toggleLevelsAction, setBombs as setBombsAction} from '../actions/ActionCreatorSelectBoard';
+import { startBoard } from '../actions/ActionCreatorScene';
+
 
 class BoardLevels extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
-            redirect: false
-            };
+            size:"none",
+            showLevels:false,
+            levels:[]
+          }
+        store.subscribe( () => {
+            this.setState({
+                showLevels: store.getState().SelectBoard.showLevels,
+                size:store.getState().SelectBoard.size,
+                levels:store.getState().SelectBoard.levels
+            })
+        });
+        this.toggleLevels = this.toggleLevels.bind(this);
         this.createScene = this.createScene.bind(this);
     }
-    
+    componentDidMount() {
+        this.unsubscribe = store.subscribe(() => { });
+      }
+      componentWillUnmount() {
+        this.unsubscribe();
+      }
+
     render(){
-        return(
-            
-            <div className="text-center"  >
-                <div id="LevelRow">
-                <h1 className="text-center">tamaño:{this.props.size}</h1>
-                <span className="text-center">Ahora Selecciona El Nivel</span>
-                    <div className="row row-centered" >
-                        <div className="card col-centered ml-4 boardlevel p-3" onClick={()=>this.createScene(this.props.size,this.props.easy)}>
-                            <div className=" card-title text-center colorDark">
-                                <h2>Fácil </h2>
+        if (this.state.showLevels )
+            return(
+                
+                <div className="text-center"  >
+                    <div id="LevelRow">
+                        <div className="row row-centered" >
+                            <div className="card col-centered ml-4 boardlevel p-3" onClick={()=>this.createScene(this.state.levels.easy)}>
+                                <div className=" card-title text-center colorDark">
+                                    <h2>Fácil </h2>
+                                </div>
+                                <div className="card-body text-center">
+                                Bombas: {this.props.easy}
+                                    {this.createDemoBombs(this.state.levels.easy)}
+                                </div>
                             </div>
-                            <div className="card-body text-center">
-                            Bombas: {this.props.easy}
-                                {this.createDemoBombs(this.props.easy)}
+                            <div className="card col-centered ml-4 boardlevel p-3" onClick={()=>this.createScene(this.state.levels.medium)}>
+                                <div className=" card-title text-center colorDark">
+                                    <h2>Medio </h2>
+                                </div>
+                                <div className="card-body text-center">
+                                    Bombas: {this.props.medium}
+                                    {this.createDemoBombs(this.state.levels.medium)}
+                                </div>
                             </div>
-                        </div>
-                        <div className="card col-centered ml-4 boardlevel p-3" onClick={()=>this.createScene(this.props.size,this.props.medium)}>
-                            <div className=" card-title text-center colorDark">
-                                <h2>Medio </h2>
+                            <div className="card col-centered ml-4 boardlevel p-3" onClick={()=>this.createScene(this.state.levels.hard)}>
+                                <div className=" card-title text-center colorDark">
+                                    <h2>Difícil </h2>
+                                </div>
+                                <div className="card-body text-center">
+                                Bombas: {this.props.hard}
+                                    {this.createDemoBombs(this.state.levels.hard)}
+                                </div>
                             </div>
-                            <div className="card-body text-center">
-                                Bombas: {this.props.medium}
-                                {this.createDemoBombs(this.props.medium)}
-                            </div>
-                        </div>
-                        <div className="card col-centered ml-4 boardlevel p-3" onClick={()=>this.createScene(this.props.size,this.props.hard)}>
-                            <div className=" card-title text-center colorDark">
-                                <h2>Difícil </h2>
-                            </div>
-                            <div className="card-body text-center">
-                            Bombas: {this.props.hard}
-                                {this.createDemoBombs(this.props.hard)}
-                            </div>
-                        </div>
 
+                        </div>
                     </div>
-                </div>
-            </div>
-        ) 
+                    <button type="button" className="btn btn-primary btn-lg" onClick={()=>this.toggleLevels()}>Volver a Seleccionar tablero</button>
 
+                </div>
+            ) 
+        else
+            return (null);
+    }
+    toggleLevels = () =>{
+        store.dispatch(toggleLevelsAction("none", 0, 0,""));
     }
     /* Crear tabla de muestra*/
     createDemoBombs = (bombs) => {
         let bombsDemo = []
         for (let i = 0; i < bombs; i++) {
             if(i % 10 === 0){
-                bombsDemo.push(<br/>)
+                bombsDemo.push(<br key={"br"+i}/>)
             }
-            bombsDemo.push(<i className="material-icons icon">brightness_7</i>)
+            bombsDemo.push(<i className="material-icons icon" key={"i"+i}>brightness_7</i>)
         }
         return bombsDemo
     }
-    createScene = (size,bombs)=> {
-        ReactDOM.render(
-            <Scene size={size} bombs = {bombs} />,
-            document.getElementById('Content')
-          );
-
+    createScene = (bombs)=> {
+        store.dispatch(setBombsAction(bombs));
+        store.dispatch(startBoard(bombs, store.getState().SelectBoard.width, store.getState().SelectBoard.height ));
+        this.props.history.push("/Scene");
     }
 }
-export default BoardLevels;
+export default withRouter( BoardLevels);
