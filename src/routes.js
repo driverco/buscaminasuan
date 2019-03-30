@@ -8,6 +8,7 @@ import RegisterUser from './components/RegisterUser';
 import Login from './components/Login';
 import Page404 from './components/Page404';
 import Stats from './components/Stats';
+import Scene from './components/Scene';
 
 const AppRoutes = () => 
 <App>
@@ -20,6 +21,7 @@ const AppRoutes = () =>
         <Route exact path="/registerUser" component = {RegisterUser} />
         <Route exact path="/login" component = {Login} />
         <Route exact path="/stats" component = {Stats} />
+        <Route exact path="/scene" component = {Scene} />
         <Route component = {Page404} />
     </Switch>
 </App>

@@ -18,10 +18,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Header
-          title="Codejobs"
-          items={items}
-        />
+        <Header items={items} />
         <Content body={children} />
         <Footer />
       </div>
