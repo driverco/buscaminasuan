@@ -10,7 +10,8 @@ const initialState = {
   board: null,
   stateBoard: null,
   bombsMarked: 0,
-  playingState: INIT
+  playingState: INIT,
+  remainingSecs:0
 }
 
 export const reducer = (state = initialState , action )=> {

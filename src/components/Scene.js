@@ -19,6 +19,7 @@ class Scene extends Component {
       width:store.getState().SelectBoard.width,
       height:store.getState().SelectBoard.height,
       bombs:store.getState().SelectBoard.bombs,
+      remainingSecs:store.getState().SelectBoard.secs,
       x:0,
       y:0,
       func:""
@@ -28,18 +29,19 @@ class Scene extends Component {
           board: store.getState().Scene.board,
           stateBoard: store.getState().Scene.stateBoard,
           bombsMarked: store.getState().Scene.bombsMarked,
-          playingState: store.getState().Scene.playingState
+          playingState: store.getState().Scene.playingState,
+          remainingSecs:store.getState().Scene.remainingSecs
         })
     });
-    this.drawtable = this.drawtable;
-    this.markBomb = this.markBomb;
-    this.unmarkBomb = this.unmarkBomb;
-    this.prepareMark = this.prepareMark;
-    this.prepareUnMark = this.prepareUnMark;
-    this.unprepareMark = this.unprepareMark;
-    this.activateCell = this.activateCell;
-    this.triggerMarkUnmark = this.triggerMarkUnmark;
-    this.mensajeEstado = this.mensajeEstado;
+    this.drawtable = this.drawtable.bind(this);
+    this.markBomb = this.markBomb.bind(this);
+    this.unmarkBomb = this.unmarkBomb.bind(this);
+    this.prepareMark = this.prepareMark.bind(this);
+    this.prepareUnMark = this.prepareUnMark.bind(this);
+    this.unprepareMark = this.unprepareMark.bind(this);
+    this.activateCell = this.activateCell.bind(this);
+    this.triggerMarkUnmark = this.triggerMarkUnmark.bind(this);
+    this.mensajeEstado = this.mensajeEstado.bind(this);
   }
   componentDidMount() {
     this.unsubscribe = store.subscribe(() => { });
@@ -54,7 +56,7 @@ class Scene extends Component {
           <div className="Scene">
             <h3>Nivel : {this.state.size}({this.state.width} , {this.state.height}).</h3>
             <div className="clockContainer">
-              <div id="clock" className="clock text-center badge badge-info">00:00</div>
+              <div id="clock" className="clock text-center badge badge-info"><i className="material-icons icon">access_time</i>X {this.state.remainingSecs}</div>
               <div id="bombsContainer" className="BombsContainer text-center badge badge-danger"><i className="material-icons icon">brightness_7</i>X<div id="bombs" className="Bombs">{this.state.bombs - this.state.bombsMarked}</div></div>
               <div className="text-center badge badge-info">Estado:{this.mensajeEstado(this.state.playingState)}</div>
             </div>
