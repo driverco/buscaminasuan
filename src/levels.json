@@ -5,8 +5,11 @@
             "height":10,
             "levels":{
                 "easy":10,
+                "easySecs":60,
                 "medium":20,
-                "hard":30
+                "mediumSecs":80,
+                "hard":30,
+                "hardSecs":120
             }
         },
         {   "size":"medium",
@@ -14,8 +17,11 @@
             "height":15,
             "levels":{
                 "easy":20,
+                "easySecs":150,
                 "medium":35,
-                "hard":50
+                "mediumSecs":280,
+                "hard":50,
+                "hardSecs":320
 
             }
         },
@@ -24,8 +30,11 @@
             "height":20,
             "levels":{
                 "easy":30,
+                "easySecs":150,
                 "medium":60,
-                "hard":100
+                "mediumSecs":300,
+                "hard":100,
+                "hardSecs":600
             }
         }
     ]

@@ -7,9 +7,10 @@ export const toggleLevels = (size, width, height, levels ) => ({
     height,
     levels
 })
-export const setBombs = ( bombs) => ({
+export const setBombs = ( bombs,secs) => ({
     type: SET_BOMBS,
-    bombs
+    bombs,
+    secs
 })
 
 

@@ -7,7 +7,8 @@ const initialState = {
   width:0,
   height:0,
   levels: [],
-  bombs: 0
+  bombs: 0,
+  secs: 0
 }
 
 export const reducer = (state = initialState , action )=> {
@@ -26,7 +27,8 @@ export const reducer = (state = initialState , action )=> {
     return{
           ...state,
           showLevels: false,
-          bombs: action.bombs
+          bombs: action.bombs,
+          secs: action.secs
      }
   }
   return state;
