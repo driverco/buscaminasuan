@@ -1,4 +1,4 @@
-import {START_BOARD, MARK_CELL, UNMARK_CELL, ACTIVATE_CELL} from "../actions/ActionTypesScene";
+import {START_BOARD, MARK_CELL, UNMARK_CELL, ACTIVATE_CELL, SET_REMAINING_SECS, WON_GAME, LOST_GAME} from "../actions/ActionTypesScene";
 
 export const INIT = 0;
 export const PLAYING = 1;
@@ -27,6 +27,7 @@ export const reducer = (state = initialState , action )=> {
       board: boardGenFilled, 
       stateBoard: boardState,
       bombsMarked: 0,
+      remainingSecs: action.remainingSecs,
       playingState: INIT
     
     }
@@ -66,6 +67,18 @@ export const reducer = (state = initialState , action )=> {
       stateBoard: boardState,
       board: brd,
       playingState:playState
+    }
+  }
+  if (action.type === SET_REMAINING_SECS ){
+    return{
+      ...state,
+      remainingSecs: action.remainingSecs
+    }
+  }
+  if (action.type === LOST_GAME ){
+    return{
+      ...state,
+      playingState: action.playingState
     }
   }
 

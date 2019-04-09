@@ -92,7 +92,7 @@ class BoardLevels extends Component {
     }
     createScene = (bombs, secs)=> {
         store.dispatch(setBombsAction(bombs, secs));
-        store.dispatch(startBoard(bombs, store.getState().SelectBoard.width, store.getState().SelectBoard.height ));
+        store.dispatch(startBoard(bombs, store.getState().SelectBoard.width, store.getState().SelectBoard.height, secs ));
         this.props.history.push("/Scene");
     }
 }

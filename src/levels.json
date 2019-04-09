@@ -5,11 +5,11 @@
             "height":10,
             "levels":{
                 "easy":10,
-                "easySecs":60,
-                "medium":20,
-                "mediumSecs":80,
-                "hard":30,
-                "hardSecs":120
+                "easySecs":50,
+                "medium":15,
+                "mediumSecs":90,
+                "hard":20,
+                "hardSecs":140
             }
         },
         {   "size":"medium",
