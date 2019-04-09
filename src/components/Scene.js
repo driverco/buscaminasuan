@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import store from '../store';
-import {markCell, unmarkCell, activateCell} from '../actions/ActionCreatorScene'
+import {markCell, unmarkCell, activateCell, setRemainingSecs, lostGame, playingGame} from '../actions/ActionCreatorScene'
 import './Scene.css';
 import { LOST,WIN, PLAYING, INIT } from '../reducers/Scene';
+import { LOST_GAME } from '../actions/ActionTypesScene';
+import { isNull } from 'util';
 
 
 
 class Scene extends Component {
   constructor(props){
     super(props);
+    if(isNull(store.getState().Scene.board) ){
+      this.props.history.push("/selectBoard");
+    }
 
     this.state = {
       board : store.getState().Scene.board,
@@ -19,7 +25,8 @@ class Scene extends Component {
       width:store.getState().SelectBoard.width,
       height:store.getState().SelectBoard.height,
       bombs:store.getState().SelectBoard.bombs,
-      remainingSecs:store.getState().SelectBoard.secs,
+      secs:store.getState().SelectBoard.secs,
+      remainingSecs:store.getState().Scene.remainingSecs,
       x:0,
       y:0,
       func:""
@@ -42,6 +49,10 @@ class Scene extends Component {
     this.activateCell = this.activateCell.bind(this);
     this.triggerMarkUnmark = this.triggerMarkUnmark.bind(this);
     this.mensajeEstado = this.mensajeEstado.bind(this);
+    this.calcularColor = this.calcularColor.bind(this);
+    this.playingGame = this.playingGame.bind(this);
+    this.abandonarPartida = this.abandonarPartida.bind(this);
+    
   }
   componentDidMount() {
     this.unsubscribe = store.subscribe(() => { });
@@ -56,21 +67,27 @@ class Scene extends Component {
           <div className="Scene">
             <h3>Nivel : {this.state.size}({this.state.width} , {this.state.height}).</h3>
             <div className="clockContainer">
-              <div id="clock" className="clock text-center badge badge-info"><i className="material-icons icon">access_time</i>X {this.state.remainingSecs}</div>
+              <div id="clock" className="clock text-center badge badge-info" style={{backgroundColor:this.calcularColor()}} ><i className="material-icons icon">access_time</i>X 
+              {this.state.playingState===PLAYING && <Counter onExit={() => this.setState({timerState:false})} />}
+              {!(this.state.playingState===PLAYING) && this.state.remainingSecs}
+              
+              </div>
               <div id="bombsContainer" className="BombsContainer text-center badge badge-danger"><i className="material-icons icon">brightness_7</i>X<div id="bombs" className="Bombs">{this.state.bombs - this.state.bombsMarked}</div></div>
               <div className="text-center badge badge-info">Estado:{this.mensajeEstado(this.state.playingState)}</div>
             </div>
             <table className="mineBoard"><tbody>
               {this.drawtable(this.state.board, this.state.stateBoard)}
             </tbody></table><br/>
-            <div className="Exit"><button type="button" className="btn btn-danger buttonExit">Abandonar Partida</button></div>
+            <div className="Exit"><button type="button" className="btn btn-danger buttonExit" onClick={()=>this.abandonarPartida()}>Abandonar Partida</button></div>
           </div>
       )
   }
 
   drawtable = (matrix, stateMatrix) => {
+    if(!isNull(matrix)){
+
       let table = []
-      for (let i = 0; i < matrix.length ; i++) {
+        for (let i = 0; i < matrix.length ; i++) {
         let children = [];
         let cell;
         let cellvalue;
@@ -96,47 +113,50 @@ class Scene extends Component {
         table.push(<tr key={"row-"+i}>{children}</tr>)
       }
       return table
+    }
   }
   markBomb = (playingState, e, y, x) => {
-    if(playingState !== LOST){
+    if(playingState !== LOST&&playingState !== WIN){
       e.preventDefault();
       store.dispatch(markCell(y,x));
+      this.playingGame();
     }
   }
   unmarkBomb = (playingState, e, y, x) => {
-    if(playingState !== LOST){
+    if(playingState !== LOST&&playingState !== WIN){
       e.preventDefault();
       store.dispatch(unmarkCell(y,x));
     }
   }
   prepareMark = (playingState,element, y, x) => {
-    if(playingState !== LOST){
+    if(playingState !== LOST&&playingState !== WIN){
       this.refs[element].focus();
       this.setState({func:"MARK", y:y, x:x})
 
     }
   }
   unprepareMark = (playingState) => {
-    if(playingState !== LOST){
+    if(playingState !== LOST&&playingState !== WIN){
       this.setState({func:" ", y:-1, x:-1})
 
     }
   }
   prepareUnMark = (playingState,element, y, x) => {
-    if(playingState !== LOST){
+    if(playingState !== LOST&&playingState !== WIN){
       this.refs[element].focus();
       this.setState({func:"UNMARK", y, x})
 
     }
   }
   activateCell = (playingState, y, x) => {
-    if(playingState !== LOST){
+    if(playingState !== LOST&&playingState !== WIN){
       store.dispatch(activateCell(y,x));
+      this.playingGame();
     }
   }
   triggerMarkUnmark = (playingState, e, func, y, x) => {
     if(e.keyCode===32){
-      if(playingState !== LOST){
+      if(playingState !== LOST&&playingState !== WIN){
         if (func === "MARK"){
           this.setState({func:"UNMARK"})
           this.markBomb(playingState,e, y,x);
@@ -156,5 +176,61 @@ class Scene extends Component {
       case LOST:return ("perdio");
     }
   }
+  calcularColor(){
+    let color = "#";
+    //para verde = 0 128 0, para rojo 128 0 0
+    let colorNumber = Math.ceil(128*this.state.remainingSecs/this.state.secs);
+    color = color + ("00"+(128 - colorNumber).toString(16)).substr(-2);
+    color = color + ("00"+colorNumber.toString(16)).substr(-2);
+    color = color + "00";
+    return (color);
+  }
+  playingGame(){
+    store.dispatch(playingGame());
+  }
+  abandonarPartida(){
+    store.dispatch(lostGame());
+    this.props.history.push("/selectBoard");
+  }
 }
-export default Scene;
+export default withRouter(Scene);
+
+
+
+
+class Counter extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      remainingSecs: store.getState().Scene.remainingSecs
+    };
+    store.subscribe( () => {
+      this.setState({
+        remainingSecs:store.getState().Scene.remainingSecs
+      })
+    });
+  }
+    
+  componentDidMount() {
+    this.interval = setInterval(() => {
+      console.log(this.state.remainingSecs)
+      if (this.state.remainingSecs -1 <= 0 ){
+        store.dispatch(lostGame());
+      }
+      store.dispatch(setRemainingSecs(this.state.remainingSecs - 1));
+    }, 1000);
+  }
+  
+  componentWillUnmount() {
+    clearInterval(this.interval);
+    this.unsubscribe = store.subscribe(() => { });
+  }
+  
+  render() {
+    return (
+      <span>
+        {this.state.remainingSecs}
+      </span>
+    )
+  }
+}

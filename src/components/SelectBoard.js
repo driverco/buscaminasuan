@@ -9,6 +9,7 @@ import { boards } from '../levels.json';
 class SelectBoard extends Component {
     constructor(){
         super();
+        this._isMounted = false;
         this.state = {
             boards,
             size:"none",
@@ -23,9 +24,11 @@ class SelectBoard extends Component {
           
     }
     componentDidMount() {
+        this._isMounted = true;
         this.unsubscribe = store.subscribe(() => { });
       }
       componentWillUnmount() {
+        this._isMounted = false;
         this.unsubscribe();
       }
     render(){
