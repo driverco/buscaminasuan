@@ -15,13 +15,13 @@ export default [
         icon:'grid_on'
     },
     {
-        title: 'Login',
+        title: 'Inicia Sesión',
         url:'/login',
         icon:'account_circle'
 
     },
     {
-        title: 'Registrar',
+        title: 'Registrate',
         url:'/registerUser',
         icon: 'create'
     },
