@@ -1,4 +1,4 @@
-import {START_BOARD, MARK_CELL, UNMARK_CELL, ACTIVATE_CELL, SET_REMAINING_SECS, WON_GAME, LOST_GAME} from "../actions/ActionTypesScene";
+import {START_BOARD, MARK_CELL, UNMARK_CELL, ACTIVATE_CELL, SET_REMAINING_SECS, LOST_GAME} from "../actions/ActionTypesScene";
 
 export const INIT = 0;
 export const PLAYING = 1;
@@ -126,6 +126,7 @@ function FillBoard  (matrix, width, height) {
             case 6: y = i+1; x = j-1;break;
             case 7: y = i+1; x = j;break;
             case 8: y = i+1; x = j+1;break;
+            default: break;
           }
           if (x>=0 && x < width && y>=0 && y < height){
             if (matrix[y][x]=== -1 ) {
@@ -153,6 +154,7 @@ function actCell (matrix, stateMatrix, yarg, xarg){
         case 6: y = yarg+1; x = xarg-1;break;
         case 7: y = yarg+1; x = xarg;break;
         case 8: y = yarg+1; x = xarg+1;break;
+        default: break;
       }
       if (x>=0 && x < matrix[0].length && y>=0 && y < matrix.length){
         if(stateMatrix[y][x]==="N"){

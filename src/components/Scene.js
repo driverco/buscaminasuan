@@ -4,7 +4,6 @@ import store from '../store';
 import {markCell, unmarkCell, activateCell, setRemainingSecs, lostGame, playingGame} from '../actions/ActionCreatorScene'
 import './Scene.css';
 import { LOST,WIN, PLAYING, INIT } from '../reducers/Scene';
-import { LOST_GAME } from '../actions/ActionTypesScene';
 import { isNull } from 'util';
 
 
@@ -174,6 +173,7 @@ class Scene extends Component {
       case PLAYING:return ("Jugando");
       case WIN:return ("Gano");
       case LOST:return ("perdio");
+      default:return("none");
     }
   }
   calcularColor(){
