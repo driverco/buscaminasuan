@@ -12,11 +12,11 @@ class Home extends Component {
                 <img src ="/img/sample1.PNG"  width="15%"/>
                 <img src ="/img/sample2.PNG" width="15%"/>
                 <img src ="/img/sample3.PNG"  width="15%"/>
-                <p>Tienes Diferentes niveles para elegir, intentalo ahora</p>
+                <p>Tienes Diferentes niveles para elegir, estas son las <Link className="LinkTo" to="/rules">Reglas de juego</Link></p>
                 <img src ="/img/sample1.PNG"  width="12%"/>
                 <img src ="/img/sample4.PNG"  width="14%"/>
                 <img src ="/img/sample5.PNG"  width="16%"/>
-                <p>No tienes usuario?,mm eso no es problema, puedes <Link className="LinkTo" to="/registerUser">Registrarte</Link>
+                <p>No tienes usuario?, eso no es problema, puedes <Link className="LinkTo" to="/registerUser">Registrarte</Link>
                     , o si ya estas en nuestra plataforma simplemente <Link className="LinkTo" to="/login">inicia Sesión</Link>
                 </p>
             </div>

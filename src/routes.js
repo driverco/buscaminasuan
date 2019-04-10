@@ -9,6 +9,7 @@ import Login from './components/Login';
 import Page404 from './components/Page404';
 import Stats from './components/Stats';
 import Scene from './components/Scene';
+import Rules from './components/Rules';
 
 const AppRoutes = () => 
 <App>
@@ -22,6 +23,7 @@ const AppRoutes = () =>
         <Route exact path="/login" component = {Login} />
         <Route exact path="/stats" component = {Stats} />
         <Route exact path="/scene" component = {Scene} />
+        <Route exact path="/rules" component = {Rules} />
         <Route component = {Page404} />
     </Switch>
 </App>

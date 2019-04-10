@@ -1,6 +1,6 @@
 export default [
     {
-        title: 'Home',
+        title: 'Inicio',
         url:'/',
         icon:'home'
     },
