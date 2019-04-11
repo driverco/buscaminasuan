@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './RegisterUser.css';
 
+const pg = require('pg');
+
 class RegisterUser extends Component {
     constructor(props) {
         super(props);
@@ -10,8 +12,8 @@ class RegisterUser extends Component {
         //this.props.dispatch(userActions.logout());
 
         this.state = {
-            name: '',
-            nameError: '',
+            userName: '',
+            userNameError: '',
             email: '',
             emailError: '',
             age:0,
@@ -19,13 +21,35 @@ class RegisterUser extends Component {
             password: '',
             passwordError: '',
             retypePassword: '',
-            avatar:"",
+            avatar:"456317",
             submitted: false
         };
 
+        const connectionData = {
+            user: 'alejandro',
+            host: '',
+            database: 'evaluaciones',
+            password: 'mysecretpassword',
+            port: 5432,
+          }
+          const client = new pg.Client(connectionData);
+          client.connect()
+            client.query('SELECT * FROM table')
+                .then(response => {
+                    console.log(response.rows)
+                    client.end()
+                })
+                .catch(err => {
+                    client.end()
+                })
+
+
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.selectAvatar = this.selectAvatar.bind(this);
     }
+
+      
     render (){
         return(
             <div>
@@ -34,11 +58,11 @@ class RegisterUser extends Component {
                     <div className='registerForm '>
                         <div>Por favor ingresa tus datos:</div>
                         <div className='form-group row'>
-                            <label  className="inputLabel col-sm-3 col-form-label" htmlFor="name">Nombre del Jugador: </label>
+                            <label  className="inputLabel col-sm-3 col-form-label" htmlFor="userName">Nombre del Jugador: </label>
                             <div className="col-sm-7">
-                                <input type="text" className="inputRegister form-control col-sm-7" name="name" value={this.state.name} onChange={this.handleChange} />
+                                <input type="text" className="inputRegister form-control col-sm-7" name="userName" value={this.state.userName} onChange={this.handleChange} />
                             </div>
-                            {this.state.submitted && (this.state.nameError.length>1) && <div className="alertMessage text-muted">{this.state.nameError}</div>}
+                            {this.state.submitted && (this.state.userNameError.length>1) && <div className="alertMessage text-muted">{this.state.userNameError}</div>}
                         </div>
                         <div className='form-group row'>
                             <label className="inputLabel col-sm-3 col-form-label" htmlFor="email">Correo Electrónico: </label>
@@ -50,7 +74,7 @@ class RegisterUser extends Component {
                         <div className='form-group row'>
                             <label className="inputLabel col-sm-3 col-form-label" htmlFor="age">Edad: </label>
                             <div className="col-sm-7">
-                            <input type="range" class="custom-range col-sm-7" min="0" max="99" step="1" id="age" name="age" value={this.state.age} onChange={this.handleChange}></input>{this.state.age}
+                            <input type="range" className="custom-range col-sm-7" min="0" max="99" step="1" id="age" name="age" value={this.state.age} onChange={this.handleChange}></input>{this.state.age}
                             </div>
                             {this.state.submitted && (this.state.ageError.length>1) && <div className="alertMessage text-muted">{this.state.ageError}</div>}
                         </div>
@@ -67,15 +91,69 @@ class RegisterUser extends Component {
                                 <input type="text" className="inputRegister form-control col-sm-7" name="retypePassword" value={this.state.retypePassword} onChange={this.handleChange} />
                             </div>
                         </div>
+                        <div className='form-group row'>
+                            <label className="inputLabel col-sm-3 col-form-label" htmlFor="avatar">Selecciona tu Avatar: </label><img src={"/img/avatar/"+this.state.avatar+".png"} alt="avatar"/>
+                        </div>
+                        <div className='form-group row'>
+                            <div className="card cardAvatar" onClick={()=>this.selectAvatar("456317")}>
+                                <img src="/img/avatar/456317.png" className="card-img-top" alt="456317"/>
+                            </div>
+                            <div className="card cardAvatar" onClick={()=>this.selectAvatar("456318")}>
+                                <img src="/img/avatar/456318.png" className="card-img-top" alt="456318" />
+                            </div>
+                            <div className="card cardAvatar" onClick={()=>this.selectAvatar("456319")}>
+                                <img src="/img/avatar/456319.png" className="card-img-top" alt="456319"/>
+                            </div>
+                            <div className="card cardAvatar" onClick={()=>this.selectAvatar("456320")}>
+                                <img src="/img/avatar/456320.png" className="card-img-top" alt="456320"/>
+                            </div>
+                            <div className="card cardAvatar" onClick={()=>this.selectAvatar("456321")}>
+                                <img src="/img/avatar/456321.png" className="card-img-top" alt="456321"/>
+                            </div>
+                            <div className="card cardAvatar" onClick={()=>this.selectAvatar("456322")}>
+                                <img src="/img/avatar/456322.png" className="card-img-top" alt="456322"/>
+                            </div>
+                            <div className="card cardAvatar" onClick={()=>this.selectAvatar("456323")}>
+                                <img src="/img/avatar/456323.png" className="card-img-top" alt="456323"/>
+                            </div>
+                            <div className="card cardAvatar" onClick={()=>this.selectAvatar("456324")}>
+                                <img src="/img/avatar/456324.png" className="card-img-top" alt="456324"/>
+                            </div>
+                            <div className="card cardAvatar" onClick={()=>this.selectAvatar("456325")}>
+                                <img src="/img/avatar/456325.png" className="card-img-top" alt="456325"/>
+                            </div>
+                            <div className="card cardAvatar" onClick={()=>this.selectAvatar("456326")}>
+                                <img src="/img/avatar/456326.png" className="card-img-top" alt="456326"/>
+                            </div>
+                            <div className="card cardAvatar" onClick={()=>this.selectAvatar("456327")}>
+                                <img src="/img/avatar/456327.png" className="card-img-top" alt="456327"/>
+                            </div>
+                            <div className="card cardAvatar" onClick={()=>this.selectAvatar("456328")}>
+                                <img src="/img/avatar/456328.png" className="card-img-top" alt="456328"/>
+                            </div>
+                            <div className="card cardAvatar" onClick={()=>this.selectAvatar("456329")}>
+                                <img src="/img/avatar/456329.png" className="card-img-top" alt="456329"/>
+                            </div>
+                            <div className="card cardAvatar" onClick={()=>this.selectAvatar("456330")}>
+                                <img src="/img/avatar/456330.png" className="card-img-top" alt="456330"/>
+                            </div>
+                            <div className="card cardAvatar" onClick={()=>this.selectAvatar("456331")}>
+                                <img src="/img/avatar/456331.png" className="card-img-top" alt="456331"/>
+                            </div>
+                            <div className="card cardAvatar" onClick={()=>this.selectAvatar("456332")}>
+                                <img src="/img/avatar/456332.png" className="card-img-top" alt="456332"/>
+                            </div>
+                        </div>
+
+
+
                         <div className="form-group row text-center">
                             <button className="btn btn-primary">Registrate</button>
-                            {/*loggingIn &&
-                                <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-                            */}
                             &nbsp;ya tienes Usuario?&nbsp;<Link to="/login" className="LinkTo">Inicia sesión</Link>
                             </div>
                     </div>
                 </form>
+
             </div>
         )
     }
@@ -86,12 +164,23 @@ class RegisterUser extends Component {
     handleSubmit(e) {
         e.preventDefault();
         let valid = true;
-        //if (/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test($('#email').val())) { /* return true */ }
-        if (this.state.name.length <8 ){
-            this.setState({ nameError: "El Nombre debe tener al menos 8 caracteres" });
+        if (this.state.userName.length <4 ){
+            this.setState({ userNameError: "El Nombre debe tener al menos 4 caracteres" });
             valid = false;
         }else{
-            this.setState({ nameError: "" });
+            if (this.state.userName.length > 10 ){
+                this.setState({ userNameError: "El Nombre de usuario no debe tener mas de 10 caracteres" });
+                valid = false;
+            }else{
+                var reName = /^[a-z0-9]+$/i;
+
+                if (!reName.test(this.state.userName)){
+                    this.setState({ userNameError: "El Nombre de usuario no debe contener caracteres especiales ni espacios, solo letras y números" });
+                    valid = false;
+                }else{
+                    this.setState({ userNameError: "" });
+                }
+            }
         }
         if (this.state.email.length <8 ){
             this.setState({ emailError: "El Email es obligatorio" });
@@ -129,10 +218,13 @@ class RegisterUser extends Component {
         }
  
         this.setState({ submitted: true });
-        if (this.state.username && this.state.password) {
+        if (valid) {
             //dispatch(userActions.login(this.state.username, this.state.password));
         }
 
+    }
+    selectAvatar(avatar){
+        this.setState({avatar:avatar});
     }
 }
 export default RegisterUser;
