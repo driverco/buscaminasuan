@@ -15,6 +15,10 @@ class BoardLevels extends Component {
             showLevels:false,
             levels:[]
           }
+        this.toggleLevels = this.toggleLevels.bind(this);
+        this.createScene = this.createScene.bind(this);
+    }
+    componentDidMount() {
         store.subscribe( () => {
             this.setState({
                 showLevels: store.getState().SelectBoard.showLevels,
@@ -22,10 +26,6 @@ class BoardLevels extends Component {
                 levels:store.getState().SelectBoard.levels
             })
         });
-        this.toggleLevels = this.toggleLevels.bind(this);
-        this.createScene = this.createScene.bind(this);
-    }
-    componentDidMount() {
         this.unsubscribe = store.subscribe(() => { });
       }
       componentWillUnmount() {

@@ -11,34 +11,22 @@ import { isNull } from 'util';
 class Scene extends Component {
   constructor(props){
     super(props);
-    if(isNull(store.getState().Scene.board) ){
-      this.props.history.push("/selectBoard");
-    }
 
     this.state = {
-      board : store.getState().Scene.board,
-      stateBoard : store.getState().Scene.stateBoard,
-      bombsMarked: store.getState().Scene.bombsMarked,
-      playingState: store.getState().Scene.playingState,
-      size:store.getState().SelectBoard.size,
-      width:store.getState().SelectBoard.width,
-      height:store.getState().SelectBoard.height,
-      bombs:store.getState().SelectBoard.bombs,
-      secs:store.getState().SelectBoard.secs,
-      remainingSecs:store.getState().Scene.remainingSecs,
+      board : [],
+      stateBoard : [],
+      bombsMarked: 0,
+      playingState: INIT,
+      size:0,
+      width:0,
+      height:0,
+      bombs:0,
+      secs:0,
+      remainingSecs:0,
       x:0,
       y:0,
       func:""
     }
-    store.subscribe( () => {
-        this.setState({
-          board: store.getState().Scene.board,
-          stateBoard: store.getState().Scene.stateBoard,
-          bombsMarked: store.getState().Scene.bombsMarked,
-          playingState: store.getState().Scene.playingState,
-          remainingSecs:store.getState().Scene.remainingSecs
-        })
-    });
     this.drawtable = this.drawtable.bind(this);
     this.markBomb = this.markBomb.bind(this);
     this.unmarkBomb = this.unmarkBomb.bind(this);
@@ -54,6 +42,36 @@ class Scene extends Component {
     
   }
   componentDidMount() {
+    if(isNull(store.getState().Scene.board) ){
+      this.props.history.push("/selectBoard");
+    }
+
+
+  this.setState({
+    board : store.getState().Scene.board,
+    stateBoard : store.getState().Scene.stateBoard,
+    bombsMarked: store.getState().Scene.bombsMarked,
+    playingState: store.getState().Scene.playingState,
+    size:store.getState().SelectBoard.size,
+    width:store.getState().SelectBoard.width,
+    height:store.getState().SelectBoard.height,
+    bombs:store.getState().SelectBoard.bombs,
+    secs:store.getState().SelectBoard.secs,
+    remainingSecs:store.getState().Scene.remainingSecs
+  });
+  store.subscribe( () => {
+    this.setState({
+      board: store.getState().Scene.board,
+      stateBoard: store.getState().Scene.stateBoard,
+      bombsMarked: store.getState().Scene.bombsMarked,
+      playingState: store.getState().Scene.playingState,
+      remainingSecs:store.getState().Scene.remainingSecs
+    })
+});
+
+
+
+
     this.unsubscribe = store.subscribe(() => { });
   }
   componentWillUnmount() {
@@ -202,16 +220,20 @@ class Counter extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      remainingSecs: store.getState().Scene.remainingSecs
+      remainingSecs: 0
     };
+  }
+    
+  componentDidMount() {
+    this.setState({
+      remainingSecs:store.getState().Scene.remainingSecs
+    })
     store.subscribe( () => {
       this.setState({
         remainingSecs:store.getState().Scene.remainingSecs
       })
     });
-  }
-    
-  componentDidMount() {
+
     this.interval = setInterval(() => {
       console.log(this.state.remainingSecs)
       if (this.state.remainingSecs -1 <= 0 ){
@@ -219,11 +241,12 @@ class Counter extends Component {
       }
       store.dispatch(setRemainingSecs(this.state.remainingSecs - 1));
     }, 1000);
+    this.unsubscribe = store.subscribe(() => { });
   }
   
   componentWillUnmount() {
     clearInterval(this.interval);
-    this.unsubscribe = store.subscribe(() => { });
+    this.unsubscribe();
   }
   
   render() {

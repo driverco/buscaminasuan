@@ -49,7 +49,7 @@
 }
 .buttonNormal{
   font-size: 5px;
-  padding: 0px;
+  padding: 0px !important;
   margin: 1px; 
   width:100%;
   height:20px;

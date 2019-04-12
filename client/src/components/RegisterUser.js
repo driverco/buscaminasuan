@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import {InputGroup, Input } from 'reactstrap';
+import Crypto from 'crypto';
+import store from '../store';
+import {setAuthMessage, setUser} from '../actions/ActionCreatorUser';
 import './RegisterUser.css';
 
-const pg = require('pg');
 
 class RegisterUser extends Component {
+
     constructor(props) {
         super(props);
 
-        // reset login status
-        //this.props.dispatch(userActions.logout());
 
         this.state = {
             userName: '',
@@ -22,32 +24,33 @@ class RegisterUser extends Component {
             passwordError: '',
             retypePassword: '',
             avatar:"456317",
-            submitted: false
+            submitted: false,
+            authMessage:""
         };
-
-        const connectionData = {
-            user: 'alejandro',
-            host: '',
-            database: 'evaluaciones',
-            password: 'mysecretpassword',
-            port: 5432,
-          }
-          const client = new pg.Client(connectionData);
-          client.connect()
-            client.query('SELECT * FROM table')
-                .then(response => {
-                    console.log(response.rows)
-                    client.end()
-                })
-                .catch(err => {
-                    client.end()
-                })
 
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.selectAvatar = this.selectAvatar.bind(this);
+        this.registrarUser = this.registrarUser.bind(this);
+
     }
+    componentDidMount() {
+        this.setState({
+            authMessage:store.getState().User.authMessage
+        })
+        store.subscribe( () => {
+          this.setState({
+            authMessage:store.getState().User.authMessage
+          })
+        });
+        this.unsubscribe = store.subscribe(() => { });
+    }
+      
+    componentWillUnmount() {
+        this.unsubscribe();
+    }
+
 
       
     render (){
@@ -55,40 +58,42 @@ class RegisterUser extends Component {
             <div>
                 <h1 className="text-center">Registrate</h1>
                 <form name="form" onSubmit={this.handleSubmit}>
+                <InputGroup>
                     <div className='registerForm '>
                         <div>Por favor ingresa tus datos:</div>
                         <div className='form-group row'>
                             <label  className="inputLabel col-sm-3 col-form-label" htmlFor="userName">Nombre del Jugador: </label>
                             <div className="col-sm-7">
-                                <input type="text" className="inputRegister form-control col-sm-7" name="userName" value={this.state.userName} onChange={this.handleChange} />
+                                <Input type="text" placeholder="Username..." className="inputRegister form-control col-sm-7" name="userName" value={this.state.userName} onChange={this.handleChange} />
                             </div>
                             {this.state.submitted && (this.state.userNameError.length>1) && <div className="alertMessage text-muted">{this.state.userNameError}</div>}
+                            <div className="alertMessage text-muted">{ this.state.authMessage }</div>
                         </div>
                         <div className='form-group row'>
                             <label className="inputLabel col-sm-3 col-form-label" htmlFor="email">Correo Electrónico: </label>
                             <div className="col-sm-7">
-                                <input type="text" className="inputRegister form-control col-sm-7" name="email" value={this.state.email} onChange={this.handleChange} />
+                                <Input type="text" placeholder="email@server.com..."className="inputRegister form-control col-sm-7" name="email" value={this.state.email} onChange={this.handleChange} />
                             </div>
                             {this.state.submitted && (this.state.emailError.length>1) && <div className="alertMessage text-muted">{this.state.emailError}</div>}
                         </div>
                         <div className='form-group row'>
                             <label className="inputLabel col-sm-3 col-form-label" htmlFor="age">Edad: </label>
                             <div className="col-sm-7">
-                            <input type="range" className="custom-range col-sm-7" min="0" max="99" step="1" id="age" name="age" value={this.state.age} onChange={this.handleChange}></input>{this.state.age}
+                                <Input type="range" className="custom-range col-sm-7" min="0" max="99" step="1" id="age" name="age" value={this.state.age} onChange={this.handleChange} />{this.state.age}
                             </div>
                             {this.state.submitted && (this.state.ageError.length>1) && <div className="alertMessage text-muted">{this.state.ageError}</div>}
                         </div>
                         <div className='form-group row'>
                             <label className="inputLabel col-sm-3 col-form-label" htmlFor="password">Contraseña: </label>
                             <div className="col-sm-7">
-                                <input type="text" className="inputRegister form-control col-sm-7" name="password" value={this.state.password} onChange={this.handleChange} />
+                                <Input type="password" placeholder="Password..." className="inputRegister form-control col-sm-7" name="password" value={this.state.password} onChange={this.handleChange} />
                             </div>
                             {this.state.submitted && (this.state.passwordError.length>1) && <div className="alertMessage text-muted ">{this.state.passwordError}</div>}
                         </div>
                         <div className='form-group row'>
                             <label className="inputLabel col-sm-3 col-form-label" htmlFor="retypePassword">Confirmar Contraseña: </label>
                             <div className="col-sm-7">
-                                <input type="text" className="inputRegister form-control col-sm-7" name="retypePassword" value={this.state.retypePassword} onChange={this.handleChange} />
+                                <Input type="password" placeholder="Retytpe Password..." className="inputRegister form-control col-sm-7" name="retypePassword" value={this.state.retypePassword} onChange={this.handleChange} />
                             </div>
                         </div>
                         <div className='form-group row'>
@@ -144,14 +149,13 @@ class RegisterUser extends Component {
                                 <img src="/img/avatar/456332.png" className="card-img-top" alt="456332"/>
                             </div>
                         </div>
-
-
-
+                        {this.state.authMessage }
                         <div className="form-group row text-center">
                             <button className="btn btn-primary">Registrate</button>
                             &nbsp;ya tienes Usuario?&nbsp;<Link to="/login" className="LinkTo">Inicia sesión</Link>
                             </div>
                     </div>
+                    </InputGroup>
                 </form>
 
             </div>
@@ -219,12 +223,49 @@ class RegisterUser extends Component {
  
         this.setState({ submitted: true });
         if (valid) {
-            //dispatch(userActions.login(this.state.username, this.state.password));
+            this.registrarUser(this.state.userName, this.state.email, this.state.password, this.state.age, this.state.avatar);
         }
 
     }
     selectAvatar(avatar){
         this.setState({avatar:avatar});
     }
+
+    registrarUser  (userName, email,password, age, avatar){
+        fetch(`/api/users/${userName}`)
+        .then(res => res.json())
+        .then(user => {
+          //console.log(user);
+          if(user.length >0 ){
+              //console.log("usuario ya existe");
+              store.dispatch(setAuthMessage ("El Usuario Ya Existe"));
+          }else{
+            fetch('/api/users', {
+                method: 'post',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userName: userName,
+                    email: email,
+                    password: Crypto.createHash('sha256').update(password).digest('hex'),
+                    age: age,
+                    avatar: avatar})
+            })
+            .then(res => res.json())
+            .then(res => {
+                //console.log(res);
+                store.dispatch(setAuthMessage ("OK"));
+                store.dispatch(setUser ({ userName: userName,
+                    email: email,
+                    age: age,
+                    avatar: avatar})
+                );
+                this.props.history.push("/selectBoard");
+            });
+          }
+        });
+    }
+    
 }
+
+
+  
 export default RegisterUser;

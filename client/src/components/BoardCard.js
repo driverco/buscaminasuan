@@ -11,14 +11,14 @@ class BoardCard extends Component {
         this.state = {
             showLevels:false
           }
+        this.toggleLevels = this.toggleLevels.bind(this);
+    }
+    componentDidMount() {
         store.subscribe( () => {
             this.setState({
                 showLevels: store.getState().SelectBoard.showLevels
             })
         });
-        this.toggleLevels = this.toggleLevels.bind(this);
-    }
-    componentDidMount() {
         this.unsubscribe = store.subscribe(() => { });
       }
       componentWillUnmount() {

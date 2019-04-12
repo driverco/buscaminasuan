@@ -9,26 +9,23 @@ import { boards } from '../levels.json';
 class SelectBoard extends Component {
     constructor(){
         super();
-        this._isMounted = false;
         this.state = {
             boards,
             size:"none",
             showLevels:false
           }
+          
+    }
+    componentDidMount() {
         store.subscribe( () => {
             this.setState({
                 showLevels: store.getState().SelectBoard.showLevels,
                 size:store.getState().SelectBoard.size
             })
         });
-          
-    }
-    componentDidMount() {
-        this._isMounted = true;
         this.unsubscribe = store.subscribe(() => { });
       }
       componentWillUnmount() {
-        this._isMounted = false;
         this.unsubscribe();
       }
     render(){

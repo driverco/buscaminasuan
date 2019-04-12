@@ -1,6 +1,7 @@
 .boardcard{
   width: 25%;
   height: 400px;
+  background-color:#b3b7ee !important; 
 }
 .tabledemo{
   margin:0px auto;
