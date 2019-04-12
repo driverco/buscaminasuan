@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css?family=Sniglet');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+
+body {
+  margin: 0px auto;
+  padding: 0px;
+  background: #0f0c29;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #24243e, #302b63, #0f0c29); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color: azure !important;
+  font-family: 'Sniglet' !important;
+  }
+
+.colorDark{
+  color:#24243e;
+}
+
+/* centered columns styles */
+.row-centered {
+  text-align:center;
+  }
+  .col-centered {
+  display:inline-block;
+  margin: 0px auto;
+  /* reset the text-align */
+  text-align:left;
+  background-color: #B3B7EE;
+  }
+  .LinkTo{
+    color: dodgerblue;
+    text-decoration: none;
+  }
+  .LinkTo:hover{
+    color: White;
+    text-decoration: none;
+  }
+  .row{
+    margin-left: 0px;
+    margin-right: 0px;
+  }

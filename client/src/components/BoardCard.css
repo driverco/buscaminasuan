@@ -1,0 +1,15 @@
+.boardcard{
+  width: 25%;
+  height: 400px;
+  background-color:#b3b7ee !important; 
+}
+.tabledemo{
+  margin:0px auto;
+
+}
+.celldemo{
+  border: 1px solid #a2a3bb;
+  background-color: #e6e6e6; 
+  width:  10px;
+  height: 10px;
+}

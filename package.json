@@ -1,30 +1,36 @@
 {
   "name": "buscaminasuan",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "prop-types": "^15.7.2",
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4",
-    "react-redux": "^6.0.1",
-    "react-router": "^5.0.0",
-    "react-router-dom": "^5.0.0",
-    "react-scripts": "2.1.8",
-    "redux": "^4.0.1"
-  },
+  "version": "0.2.0",
+  "description": "Buscaminas UAN by Driverco.",
+  "main": "index.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "client": "npm start --prefix client",
+    "server": "nodemon server",
+    "start": "node server",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/driverco/buscaminasuan.git"
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  "keywords": [
+    "buscaminasuan"
+  ],
+  "author": "Driverco- Wilmer Rodriguez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/driverco/buscaminasuan/issues"
+  },
+  "homepage": "https://github.com/driverco/buscaminasuan#readme",
+  "devDependencies": {
+    "concurrently": "^4.1.0",
+    "nodemon": "^1.18.11"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.4",
+    "express": "^4.16.4",
+    "pg": "^7.9.0"
+  }
 }
