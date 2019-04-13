@@ -15,6 +15,7 @@ app.use(bodyParser.json());
 app.use('/api/users', require('./api/users'));
 
 if (ENV === 'production') {
+    console.log("Starting server in Production Mode");
     app.use(express.static(path.join(__dirname, '../client/build')));
     app.use((req, res) => {
        res.sendFile(path.join(__dirname, '../client/build/index.html'));
@@ -26,6 +27,7 @@ app.listen(PORT, () => {
     console.log("---------------------------------");
     console.log("Server listening on port "+PORT+"!");
     console.log("powered by Driverco");
+    console.log("Starting Mode:"+process.env.NODE_ENV);
   });
 
 db.query('select now()', (err, res) =>{
