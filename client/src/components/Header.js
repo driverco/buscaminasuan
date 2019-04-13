@@ -52,9 +52,10 @@ class Header extends Component {
                   toRender&&<div className="menuItem" key={"menu"+item.title}><Link to={item.url}><i className="material-icons icon">{item.icon}</i>{item.title}</Link></div>
                 )
               }
-                
             )
           }
+          {(this.state.authMessage==="OK")&&<div className="menuItem">Usuario</div>}
+
 
         </Navbar> 
       </div>

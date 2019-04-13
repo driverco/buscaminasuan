@@ -5,8 +5,10 @@
 .alertMessage{
   color:crimson!important;
 }
-.cardAvatar{
+.imgAvatar{
   width: 48px;
   margin: 3px;
+  display: inline-block;
 }
+
 

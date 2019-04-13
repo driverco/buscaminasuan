@@ -16,7 +16,7 @@ class Users {
         });
     }
     static authUser(userName, passwd, callback){
-        db.query('select userName, email, age, avatar from users where userName = $1 and password = $2', [userName, passwd],function(err,resp){
+        db.query('select userName, email, age, avatar from users where userName = $1 and passwd = $2', [userName, passwd],function(err,resp){
             if (err.error)
                 return callback(err);
             callback (resp);
