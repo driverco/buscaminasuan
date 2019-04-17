@@ -1,7 +1,8 @@
 import { SET_AUTH_MESSAGE, SET_USER } from "../actions/ActionsTypeUser";
 
 const initialState = {
-    user:null,
+    //user:{"username":"driverco","email":"driverco@gmail.com","age":"35","avatar":"456326"},
+    user:{},
     authMessage: ""
 };
 

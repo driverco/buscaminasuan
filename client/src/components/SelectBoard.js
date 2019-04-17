@@ -12,15 +12,30 @@ class SelectBoard extends Component {
         this.state = {
             boards,
             size:"none",
-            showLevels:false
+            showLevels:false,
+            authMessage:""
           }
           
     }
     componentDidMount() {
+        if(store.getState().User.authMessage!=="OK"){
+            this.props.history.push("/home");
+
+        }
+
+        this.setState({
+            showLevels: store.getState().SelectBoard.showLevels,
+            size:store.getState().SelectBoard.size,
+            authMessage: store.getState().User.authMessage
+        });
+
+        
+
         store.subscribe( () => {
             this.setState({
                 showLevels: store.getState().SelectBoard.showLevels,
-                size:store.getState().SelectBoard.size
+                size:store.getState().SelectBoard.size,
+                authMessage: store.getState().User.authMessage
             })
         });
         this.unsubscribe = store.subscribe(() => { });

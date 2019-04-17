@@ -5,25 +5,27 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Navbar} from 'reactstrap';
 import store from '../store';
-
-// Assets
-
+import UserBox from './UserBox';
 import './Header.css';
+
 class Header extends Component {
   constructor(props){
     super(props);
     this.state = {
-      authMessage:""
+      authMessage:"",
+      user: {}
     }
   }
   componentDidMount() {
 
     this.setState({
-      authMessage: store.getState().User.authMessage
+      authMessage: store.getState().User.authMessage,
+      user: store.getState().User.user
     });
     store.subscribe( () => {
       this.setState({
-        authMessage: store.getState().User.authMessage
+        authMessage: store.getState().User.authMessage,
+        user: store.getState().User.user
       })
     });
     this.unsubscribe = store.subscribe(() => { });
@@ -52,9 +54,10 @@ class Header extends Component {
                   toRender&&<div className="menuItem" key={"menu"+item.title}><Link to={item.url}><i className="material-icons icon">{item.icon}</i>{item.title}</Link></div>
                 )
               }
-                
             )
           }
+          {(this.state.authMessage==="OK")&&<div className="menuItem"><UserBox /></div>}
+
 
         </Navbar> 
       </div>
