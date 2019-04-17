@@ -5,7 +5,8 @@ import Crypto from 'crypto';
 import store from '../store';
 import {setAuthMessage, setUser} from '../actions/ActionCreatorUser';
 import './RegisterUser.css';
-
+import PasswordStrengthMeter from './PasswordStrengthMeter';
+import zxcvbn from 'zxcvbn';
 
 class RegisterUser extends Component {
 
@@ -91,7 +92,7 @@ class RegisterUser extends Component {
                         <Row>
                             <Col><label  htmlFor="age">Edad: </label></Col>
                             <Col>
-                                <Input type="range" className="custom-range " min="0" max="99" step="1" id="age" name="age" value={this.state.age} onChange={this.handleChange} />{this.state.age}
+                                <Input type="range" className="custom-range " min="0" max="90" step="1" id="age" name="age" value={this.state.age} onChange={this.handleChange} />{this.state.age}
                             </Col>
                         </Row>
                         <Row>
@@ -111,13 +112,20 @@ class RegisterUser extends Component {
                             <Col>
                             </Col>
                             <Col>
-                            {this.state.submitted && (this.state.passwordError.length>1) && <div className="alertMessage text-muted ">{this.state.passwordError}</div>}
+                            <PasswordStrengthMeter password={this.state.password} />
                             </Col>
                         </Row>
                         <Row >
                             <Col><label htmlFor="retypePassword">Confirmar Contraseña: </label></Col>
                             <Col >
-                                <Input type="password" placeholder="Retytpe Password..." name="retypePassword" value={this.state.retypePassword} onChange={this.handleChange} />
+                                <Input type="password" autoComplete="off" placeholder="Retytpe Password..." name="retypePassword" value={this.state.retypePassword} onChange={this.handleChange} />
+                            </Col>
+                        </Row>
+                        <Row >
+                            <Col>
+                            </Col>
+                            <Col>
+                            {this.state.submitted && (this.state.passwordError.length>1) && <div className="alertMessage text-muted ">{this.state.passwordError}</div>}
                             </Col>
                         </Row>
                         <Row >
@@ -214,7 +222,12 @@ class RegisterUser extends Component {
                     this.setState({ passwordError: "las contraseñas no coinciden" });
                     valid = false;
                 }else{
-                    this.setState({ passwordError: "" });
+                    if (zxcvbn(this.state.password).score < 3 ){
+                        this.setState({ passwordError: "La contraseña no cumple con la complejidad mínima" });
+                        valid = false;
+                    }else{
+                        this.setState({ passwordError: "" });
+                    }
                 }
             }
         }
@@ -263,7 +276,5 @@ class RegisterUser extends Component {
     }
     
 }
-
-
   
 export default RegisterUser;
