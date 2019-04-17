@@ -132,7 +132,7 @@ class Login extends Component {
             }else{
                 //console.log(res);
                 store.dispatch(setAuthMessage ("OK"));
-                store.dispatch(setUser (user));
+                store.dispatch(setUser (user[0]));
                 this.props.history.push("/selectBoard");
             }
         });

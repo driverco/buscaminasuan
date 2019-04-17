@@ -251,7 +251,7 @@ class RegisterUser extends Component {
             .then(res => {
                 //console.log(res);
                 store.dispatch(setAuthMessage ("OK"));
-                store.dispatch(setUser ({ userName: userName,
+                store.dispatch(setUser ({ username: userName,
                     email: email,
                     age: age,
                     avatar: avatar})
