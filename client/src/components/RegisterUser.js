@@ -92,7 +92,7 @@ class RegisterUser extends Component {
                         <Row>
                             <Col><label  htmlFor="age">Edad: </label></Col>
                             <Col>
-                                <Input type="range" className="custom-range " min="0" max="99" step="1" id="age" name="age" value={this.state.age} onChange={this.handleChange} />{this.state.age}
+                                <Input type="range" className="custom-range " min="0" max="90" step="1" id="age" name="age" value={this.state.age} onChange={this.handleChange} />{this.state.age}
                             </Col>
                         </Row>
                         <Row>
