@@ -196,7 +196,8 @@ class RegisterUser extends Component {
             this.setState({ emailError: "El Email es obligatorio" });
             valid = false;
         }else{
-            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            //var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            var re =  /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
             if (!re.test(this.state.email)){
                 this.setState({ emailError: "El correo no tiene formato correcto" });
                 valid = false;
@@ -254,7 +255,7 @@ class RegisterUser extends Component {
             fetch('/api/users', {
                 method: 'post',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ userName: userName,
+                body: JSON.stringify({ username: userName,
                     email: email,
                     password: Crypto.createHash('sha256').update(password).digest('hex'),
                     age: age,

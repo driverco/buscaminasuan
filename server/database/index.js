@@ -1,14 +1,23 @@
 var { Pool } = require('pg');
+//var pg = require('pg')
+/*
+var connectionString = 'pg://postgres:postgres@localhost:5432/buscaminas';
+var client = new pg.Client(connectionString);
+client.connect();
+*/
 
-const CONNECTION_STRING = process.env.DATABASE_URL || 'postgresql://postgres:DevTeam1379@localhost:5432/buscaminasuan';
+
+
+//const CONNECTION_STRING = process.env.DATABASE_URL || 'postgresql://postgres:DevTeam1379@localhost:5432/buscaminasuan';
+const CONNECTION_STRING = 'pg://postgres:postgres@localhost:5432/buscaminas';
 //const SSL = process.env.NODE_ENV === 'production';
-const SSL = false;
+//const SSL = false;
 
 class Database {
   constructor () {
     this._pool = new Pool({
       connectionString: CONNECTION_STRING,
-      ssl: SSL
+      //ssl: SSL
     });
 
     this._pool.on('error', (err, client) => {
@@ -20,18 +29,18 @@ class Database {
 
   query (query, ...args) {
     this._pool.connect((err, client, done) => {
-      if (err) throw err;
+      //if (err) throw err;
       const params = args.length === 2 ? args[0] : [];
       const callback = args.length === 1 ? args[0] : args[1];
 
-      client.query(query, params, (err, res) => {
+      /*client.query(query, params, (err, res) => {
         done();
         if (err) {
           console.log(err.stack);
           return callback({ error: 'Database error.' }, null);
         }
         callback({}, res.rows);
-      });
+      });*/
     });
 
   }
