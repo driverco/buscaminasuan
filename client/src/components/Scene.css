@@ -55,8 +55,8 @@
   height:20px;
 }
 .buttonBombMark{
-  font-size: 5px;
-  padding: 0px;
+  font-size: 5px !important;
+  padding: 0px !important;
   margin: 0px; 
 }
 .buttonActivated{
