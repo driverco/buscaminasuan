@@ -3,6 +3,7 @@ import {START_BOARD, MARK_CELL, UNMARK_CELL, ACTIVATE_CELL, SET_REMAINING_SECS, 
 export const INIT = 0;
 export const PLAYING = 1;
 export const WIN = 2;
+export const GIVEUP = 3;
 export const LOST = 10;
 
 
@@ -11,7 +12,8 @@ const initialState = {
   stateBoard: null,
   bombsMarked: 0,
   playingState: INIT,
-  remainingSecs:0
+  remainingSecs:0,
+  gameId:0
 }
 
 export const reducer = (state = initialState , action )=> {
@@ -19,16 +21,22 @@ export const reducer = (state = initialState , action )=> {
     let boardGen = [];
     let boardGenFilled = [];
     let boardState = [];
+    let gameId = 0;
     boardGen = createRandomBoms(createEmptyArrays(action.width, action.height,0), action.bombs,action.width, action.height);
     boardGenFilled = FillBoard(boardGen, action.width, action.height);
     boardState = createEmptyArrays(action.width, action.height,"N");
+    insertGameDB(action.userId, action.size, action.level, action.score )  .then(res => {gameId =  res; });
+    console.log("response insertGameDB:"+gameId);
+    //console.log("response insertGameDB[0].id:"+gameId[0].id);
+    //gameId = gameId[0].id;
     return{
       ...state,
       board: boardGenFilled, 
       stateBoard: boardState,
       bombsMarked: 0,
       remainingSecs: action.remainingSecs,
-      playingState: INIT
+      playingState: INIT,
+      gameId:gameId
     
     }
   }
@@ -178,6 +186,26 @@ function validateBoard (matrix, stateMatrix){
   }
   return WIN;
 }
+async function insertGameDB (userId, size, level, score){
+  console.log("userId:"+userId);
+  console.log("size:"+size);
+  console.log("level:"+level);
+  console.log("score:"+score);
+  return await fetch('/api/games', {
+    method: 'post',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ userId: userId,
+      size: size,
+      level:level,
+      score:score})
+  })
+  .then(res => res.json())
+  .then(res => {
+    return res[0].id;
+  });
+  
+}
+
 
 
 

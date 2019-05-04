@@ -1,12 +1,16 @@
 import { START_BOARD, MARK_CELL, UNMARK_CELL, ACTIVATE_CELL, SET_REMAINING_SECS, LOST_GAME, PLAYING_GAME } from './ActionTypesScene'
 import { LOST, PLAYING } from '../reducers/Scene';
 
-export const startBoard = (bombs,width, height, remainingSecs) => ({
+export const startBoard = (bombs,width, height, remainingSecs, userId, size, level, score) => ({
     type: START_BOARD,
     bombs,
     width,
     height,
-    remainingSecs
+    remainingSecs,
+    userId,
+    size,
+    level, 
+    score
 });
 
 export const markCell = (y, x) => ({

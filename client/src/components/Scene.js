@@ -25,7 +25,8 @@ class Scene extends Component {
       remainingSecs:0,
       x:0,
       y:0,
-      func:""
+      func:"",
+      gameId:0
     }
     this.drawtable = this.drawtable.bind(this);
     this.markBomb = this.markBomb.bind(this);
@@ -57,7 +58,8 @@ class Scene extends Component {
     height:store.getState().SelectBoard.height,
     bombs:store.getState().SelectBoard.bombs,
     secs:store.getState().SelectBoard.secs,
-    remainingSecs:store.getState().Scene.remainingSecs
+    remainingSecs:store.getState().Scene.remainingSecs,
+    gameId:store.getState().Scene.gameId
   });
   store.subscribe( () => {
     this.setState({
@@ -65,7 +67,8 @@ class Scene extends Component {
       stateBoard: store.getState().Scene.stateBoard,
       bombsMarked: store.getState().Scene.bombsMarked,
       playingState: store.getState().Scene.playingState,
-      remainingSecs:store.getState().Scene.remainingSecs
+      remainingSecs:store.getState().Scene.remainingSecs,
+      gameId:store.getState().Scene.gameId
     })
 });
 
@@ -82,7 +85,7 @@ class Scene extends Component {
       
       return(
           <div className="Scene">
-            <h3>Nivel : {this.state.size}({this.state.width} , {this.state.height}).</h3>
+            <h3>Nivel : {this.state.size}({this.state.width} , {this.state.height}), id: {this.state.gameId}</h3>
             <div className="clockContainer">
               <div id="clock" className="clock text-center badge badge-info" style={{backgroundColor:this.calcularColor()}} ><i className="material-icons icon">access_time</i>X 
               {this.state.playingState===PLAYING && <Counter onExit={() => this.setState({timerState:false})} />}

@@ -25,11 +25,11 @@ router.post('/', function(req,res){
     var passwd = req.body.password;
     var age = req.body.age;
     var avatar = req.body.avatar;
-    console.log("userName:"+userName);
+    /*console.log("userName:"+userName);
     console.log("email:"+email);
     console.log("passwd:"+passwd);
     console.log("age:"+age);
-    console.log("avatar:"+avatar);
+    console.log("avatar:"+avatar);*/
 
     Users.insert(userName, email, passwd, age, avatar,  function(err, users){
         if (err)
@@ -40,8 +40,8 @@ router.post('/', function(req,res){
 router.post('/Auth', function(req,res){
     var userName = req.body.userName;
     var passwd = req.body.password;
-    console.log("Auth UserName:"+userName);
-    console.log("passwd:"+passwd);
+    /*console.log("Auth UserName:"+userName);
+    console.log("passwd:"+passwd);*/
 
     Users.authUser(userName, passwd,  function(err, user){
         if (err)

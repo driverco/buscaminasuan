@@ -39,7 +39,7 @@ class BoardLevels extends Component {
                 <div className="text-center"  >
                     <div id="LevelRow">
                         <div className="row row-centered" >
-                            <div className="card col-centered ml-4 boardlevel p-3" onClick={()=>this.createScene(this.state.levels.easy, this.state.levels.easySecs)}>
+                            <div className="card col-centered ml-4 boardlevel p-3" onClick={()=>this.createScene(this.state.levels.easy, this.state.levels.easySecs, store.getState().User.user.id, this.state.size, "easy", this.state.levels.easyPoints)}>
                                 <div className=" card-title text-center colorDark">
                                     <h2>Fácil </h2>
                                 </div>
@@ -48,7 +48,7 @@ class BoardLevels extends Component {
                                     {this.createDemoBombs(this.state.levels.easy)}
                                 </div>
                             </div>
-                            <div className="card col-centered ml-4 boardlevel p-3" onClick={()=>this.createScene(this.state.levels.medium, this.state.levels.mediumSecs)}>
+                            <div className="card col-centered ml-4 boardlevel p-3" onClick={()=>this.createScene(this.state.levels.medium, this.state.levels.mediumSecs, store.getState().User.user.id, this.state.size, "medium", this.state.levels.mediumPoints)}>
                                 <div className=" card-title text-center colorDark">
                                     <h2>Medio </h2>
                                 </div>
@@ -57,7 +57,7 @@ class BoardLevels extends Component {
                                     {this.createDemoBombs(this.state.levels.medium)}
                                 </div>
                             </div>
-                            <div className="card col-centered ml-4 boardlevel p-3" onClick={()=>this.createScene(this.state.levels.hard, this.state.levels.hardSecs)}>
+                            <div className="card col-centered ml-4 boardlevel p-3" onClick={()=>this.createScene(this.state.levels.hard, this.state.levels.hardSecs, store.getState().User.user.id, this.state.size, "hard", this.state.levels.hardPoints)}>
                                 <div className=" card-title text-center colorDark">
                                     <h2>Difícil </h2>
                                 </div>
@@ -90,9 +90,13 @@ class BoardLevels extends Component {
         }
         return bombsDemo
     }
-    createScene = (bombs, secs)=> {
+    createScene = (bombs, secs, userId, size, level, score)=> {
         store.dispatch(setBombsAction(bombs, secs));
-        store.dispatch(startBoard(bombs, store.getState().SelectBoard.width, store.getState().SelectBoard.height, secs ));
+        store.dispatch(startBoard(bombs, store.getState().SelectBoard.width, store.getState().SelectBoard.height, secs,
+        userId,
+        size,
+        level, 
+        score ));
         this.props.history.push("/Scene");
     }
 }
