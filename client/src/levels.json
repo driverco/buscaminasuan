@@ -6,10 +6,13 @@
             "levels":{
                 "easy":10,
                 "easySecs":50,
+                "easyPoints":10,
                 "medium":15,
                 "mediumSecs":90,
+                "mediumPoints":20,
                 "hard":20,
-                "hardSecs":140
+                "hardSecs":140,
+                "hardPoints":35
             }
         },
         {   "size":"medium",
@@ -18,10 +21,13 @@
             "levels":{
                 "easy":20,
                 "easySecs":150,
+                "easyPoints":25,
                 "medium":35,
                 "mediumSecs":280,
+                "mediumPoints":40,
                 "hard":50,
-                "hardSecs":320
+                "hardSecs":320,
+                "hardPoints":65
 
             }
         },
@@ -31,10 +37,13 @@
             "levels":{
                 "easy":30,
                 "easySecs":150,
+                "easyPoints":60,
                 "medium":60,
                 "mediumSecs":300,
+                "mediumPoints":85,
                 "hard":100,
-                "hardSecs":600
+                "hardSecs":600,
+                "hardPoints":110
             }
         }
     ]

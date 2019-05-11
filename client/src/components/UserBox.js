@@ -3,6 +3,7 @@ import store from '../store';
 import { Link } from 'react-router-dom';
 import {Row, Col } from 'reactstrap';
 import { setUser, setAuthMessage } from '../actions/ActionCreatorUser';
+import './UserBox.css';
 
 
 class UserBox extends Component {
@@ -35,18 +36,21 @@ class UserBox extends Component {
           return(
             <div className="userBox">
               <Row>
-                <Col>
+              <Col>
                   <img src={"/img/avatar/"+this.state.user.avatar+".png"} className="imgAvatar" alt="avatar" />
+                </Col>
+                <Col>
+                  <span className="score">{this.state.user.score}</span>
                 </Col>
                 <Col>
                     <Row>
                         <Col>
-                            {this.state.user.username}
+                          {this.state.user.username}
                         </Col>
                     </Row>
                     <Row>
                         <Col>
-                          <Link onClick={()=>this.closeSession()}>Salir</Link>
+                          <Link onClick={()=>this.closeSession()} to="#">Salir</Link>
                         </Col>
                     </Row>
                 </Col>
