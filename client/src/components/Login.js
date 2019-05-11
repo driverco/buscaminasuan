@@ -126,7 +126,7 @@ class Login extends Component {
             })
         }).then(res => res.json())
         .then(user => {
-            console.log(user);
+            //console.log(user);
             if(user.length ===0 ){
                 store.dispatch(setAuthMessage ("Usuario o Clave Invalido"));
             }else{

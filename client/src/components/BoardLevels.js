@@ -92,12 +92,27 @@ class BoardLevels extends Component {
     }
     createScene = (bombs, secs, userId, size, level, score)=> {
         store.dispatch(setBombsAction(bombs, secs));
-        store.dispatch(startBoard(bombs, store.getState().SelectBoard.width, store.getState().SelectBoard.height, secs,
-        userId,
-        size,
-        level, 
-        score ));
-        this.props.history.push("/Scene");
+        let scoreToSend = -(score/2);
+        
+        console.log("userId:"+userId);
+        console.log("size:"+size);
+        console.log("level:"+level);
+        console.log("score:"+score);
+        fetch('/api/games', {
+            method: 'post',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ userId: userId,
+            size: size,
+            level:level,
+            score:scoreToSend})
+        })
+        .then(res => res.json())
+        .then(res => {
+            store.dispatch(startBoard(bombs, store.getState().SelectBoard.width, store.getState().SelectBoard.height, secs, res[0].id,score));
+            this.props.history.push("/Scene");
+        });
+            
+          
     }
 }
 export default withRouter( BoardLevels);

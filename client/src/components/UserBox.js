@@ -50,7 +50,7 @@ class UserBox extends Component {
                     </Row>
                     <Row>
                         <Col>
-                          <Link onClick={()=>this.closeSession()}>Salir</Link>
+                          <Link onClick={()=>this.closeSession()} to="#">Salir</Link>
                         </Col>
                     </Row>
                 </Col>

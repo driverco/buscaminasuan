@@ -21,14 +21,10 @@ export const reducer = (state = initialState , action )=> {
     let boardGen = [];
     let boardGenFilled = [];
     let boardState = [];
-    let gameId = 0;
+    let gameId = action.gameId;
     boardGen = createRandomBoms(createEmptyArrays(action.width, action.height,0), action.bombs,action.width, action.height);
     boardGenFilled = FillBoard(boardGen, action.width, action.height);
     boardState = createEmptyArrays(action.width, action.height,"N");
-    insertGameDB(action.userId, action.size, action.level, action.score )  .then(res => {gameId =  res; });
-    console.log("response insertGameDB:"+gameId);
-    //console.log("response insertGameDB[0].id:"+gameId[0].id);
-    //gameId = gameId[0].id;
     return{
       ...state,
       board: boardGenFilled, 
@@ -186,28 +182,6 @@ function validateBoard (matrix, stateMatrix){
   }
   return WIN;
 }
-async function insertGameDB (userId, size, level, score){
-  console.log("userId:"+userId);
-  console.log("size:"+size);
-  console.log("level:"+level);
-  console.log("score:"+score);
-  return await fetch('/api/games', {
-    method: 'post',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ userId: userId,
-      size: size,
-      level:level,
-      score:score})
-  })
-  .then(res => res.json())
-  .then(res => {
-    return res[0].id;
-  });
-  
-}
-
-
-
 
 export default reducer;
 

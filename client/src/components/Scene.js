@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import store from '../store';
-import {markCell, unmarkCell, activateCell, setRemainingSecs, lostGame, playingGame} from '../actions/ActionCreatorScene'
+import {markCell, unmarkCell, activateCell, setRemainingSecs, lostGame} from '../actions/ActionCreatorScene'
 import './Scene.css';
 import { LOST,WIN, PLAYING, INIT } from '../reducers/Scene';
 import { isNull } from 'util';
@@ -38,7 +38,6 @@ class Scene extends Component {
     this.triggerMarkUnmark = this.triggerMarkUnmark.bind(this);
     this.mensajeEstado = this.mensajeEstado.bind(this);
     this.calcularColor = this.calcularColor.bind(this);
-    this.playingGame = this.playingGame.bind(this);
     this.abandonarPartida = this.abandonarPartida.bind(this);
     
   }
@@ -205,9 +204,6 @@ class Scene extends Component {
     color = color + ("00"+colorNumber.toString(16)).substr(-2);
     color = color + "00";
     return (color);
-  }
-  playingGame(){
-    store.dispatch(playingGame());
   }
   abandonarPartida(){
     store.dispatch(lostGame());
