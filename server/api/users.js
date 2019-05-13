@@ -1,6 +1,7 @@
 var express = require ('express');
 var Users = require('../models/users');
 
+
 var router  = express.Router();
 
 router.get('/', function(req,res){
@@ -18,7 +19,6 @@ router.get('/:userName', function(req,res){
         return res.json(user);
     })
 });
-
 router.post('/', function(req,res){
     var userName = req.body.userName;
     var email = req.body.email;
@@ -49,5 +49,17 @@ router.post('/Auth', function(req,res){
         return res.json(user);
     })
 });
+router.get('/getPuntajes/:iduser', function(req,res){
+    
+    var piduser = req.params.iduser;
+    //console.log("Id Usuario >>>> : "+ piduser);
+
+    Users.getPuntajes(piduser,  function(err, puntaje){
+        if (err)
+            return res.json(err);
+        return res.json(puntaje);
+    })
+});
+
 
 module.exports = router;
