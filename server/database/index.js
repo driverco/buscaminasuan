@@ -1,6 +1,7 @@
 var { Pool } = require('pg');
 
-const CONNECTION_STRING = process.env.DATABASE_URL || 'postgresql://postgres:DevTeam1379@localhost:5432/buscaminasuan';
+const CONNECTION_STRING = process.env.DATABASE_URL || 'postgresql://postgres:Hranmc9bb8**@localhost:5432/buscaminasuan';
+
 //const SSL = process.env.NODE_ENV === 'production';
 const SSL = false;
 
@@ -20,7 +21,7 @@ class Database {
 
   query (query, ...args) {
     this._pool.connect((err, client, done) => {
-      if (err) throw err;
+      
       const params = args.length === 2 ? args[0] : [];
       const callback = args.length === 1 ? args[0] : args[1];
 
