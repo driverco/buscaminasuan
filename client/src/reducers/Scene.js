@@ -169,6 +169,18 @@ function validateBoard (matrix, stateMatrix){
   for (let i = 0; i < matrix.length; i++) {
     for (let j = 0; j < matrix[i].length; j++) {
       if (stateMatrix[i][j] === "A" && matrix[i][j]=== -1) {
+        //this.guardarDatos (77181305,LOST,this.initialState.remainingSecs,this.initialState.stateBoard,this.initialState.board);
+        
+        fetch(`guardarPartida/${77181305},${LOST},${this.initialState.remainingSecs},${this.initialState.stateBoard},${this.initialState.board}`,{
+        //  fetch(`guardarPartida/77181305,LOST,this.initialState.remainingSecs,this.initialState.stateBoard,this.initialState.board`,{
+            method: 'post',
+            headers: { 'Content-Type': 'application/json' }
+        }).then(res => res.json())
+          .then(user => {
+      
+          });
+
+        //
         return LOST;
       }
       if (stateMatrix[i][j] === "N" && matrix[i][j]>-1){
@@ -176,10 +188,34 @@ function validateBoard (matrix, stateMatrix){
       }
     }
   }
+  //this.guardarDatos (77181305,WIN,this.initialState.remainingSecs,this.initialState.stateBoard,this.initialState.board);
+
+  
+  fetch(`guardarPartida/77181305,LOST,this.initialState.remainingSecs,this.initialState.stateBoard,$this.initialState.board`,{
+    method: 'post',
+    headers: { 'Content-Type': 'application/json' }
+    }).then(res => res.json())
+      .then(user => {
+
+      });
+
+
+  //
   return WIN;
 }
 
+function guardarDatos (iduser,estado,tiempo,dificultad,tipoTablero)
+{
 
+    fetch(`guardarPartida/${iduser},${estado},${tiempo},${dificultad},${tipoTablero}`,{
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' }
+  }).then(res => res.json())
+    .then(user => {
+
+    });
+
+}
 
 export default reducer;
 

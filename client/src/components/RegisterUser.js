@@ -246,7 +246,7 @@ class RegisterUser extends Component {
         fetch(`/api/users/${userName}`)
         .then(res => res.json())
         .then(user => {
-          //console.log(user);
+          console.log(user);
           if(user.length >0 ){
               //console.log("usuario ya existe");
               store.dispatch(setAuthMessage ("El Usuario Ya Existe"));

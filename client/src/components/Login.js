@@ -134,6 +134,7 @@ class Login extends Component {
                 store.dispatch(setAuthMessage ("OK"));
                 store.dispatch(setUser (user[0]));
                 this.props.history.push("/selectBoard");
+                
             }
         });
     }

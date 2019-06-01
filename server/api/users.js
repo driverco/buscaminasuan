@@ -4,6 +4,7 @@ var Users = require('../models/users');
 
 var router  = express.Router();
 
+
 router.get('/', function(req,res){
     Users.retrieveAll(function(err, users){
         if (err)
@@ -11,6 +12,7 @@ router.get('/', function(req,res){
         return res.json(users);
     })
 });
+
 router.get('/:userName', function(req,res){
     var userName = req.params.userName;
     Users.retrieveUser(userName,function(err, user){
@@ -19,6 +21,9 @@ router.get('/:userName', function(req,res){
         return res.json(user);
     })
 });
+
+
+
 router.post('/', function(req,res){
     var userName = req.body.userName;
     var email = req.body.email;
@@ -40,8 +45,6 @@ router.post('/', function(req,res){
 router.post('/Auth', function(req,res){
     var userName = req.body.userName;
     var passwd = req.body.password;
-    console.log("Auth UserName:"+userName);
-    console.log("passwd:"+passwd);
 
     Users.authUser(userName, passwd,  function(err, user){
         if (err)
@@ -49,17 +52,25 @@ router.post('/Auth', function(req,res){
         return res.json(user);
     })
 });
-router.get('/getPuntajes/:iduser', function(req,res){
-    
-    var piduser = req.params.iduser;
-    //console.log("Id Usuario >>>> : "+ piduser);
 
-    Users.getPuntajes(piduser,  function(err, puntaje){
+router.post('/guardarPartida', function(req,res){
+    var iduser = req.body.iduser;
+    var estado = req.body.estado;
+    var tiempo = req.body.tiempo;
+    var dificultad = req.body.dificultad;
+    var tipoTablero = req.body.tipoTablero;
+
+    Users.guardarPartida(iduser, estado,tiempo, dificultad, tipoTablero,  function(err, user){
         if (err)
             return res.json(err);
-        return res.json(puntaje);
+        return res.json(user);
     })
 });
+
+
+
+
+
 
 
 module.exports = router;

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import Link from 'react-router-dom';
-
 import StatsBox from './StatsBox';
+import StatsRakings from './StatsRaking';
+import StatsJugadores from './StatsJugadores';
+
 
 class Stats extends Component {
     constructor(props){
@@ -13,19 +14,18 @@ class Stats extends Component {
             puntuacion:'',
             tiempo_jugado:''
         }
-        
     }
+
     render (){
         return(
         <div>
 
             <div className="container">
                 <div className ="row mt-5">
-                    <StatsBox titulo="Raking" col1="Puntuacion" col2 ="tiempo jugado" idUsuario = "77181305"/>
-                    <StatsBox titulo="Partidas" col1="Puntuacion" col2 ="tiempo jugado" idUsuario = "77181305"/>
-                    <StatsBox titulo="Totales" col1="Puntuacion" col2 ="tiempo jugado" idUsuario = "77181305"/>
+                    <StatsBox titulo="Mejores puntajes" col1="Puntuacion" col2 ="Dificultad" modo = "puntajes"/>
+                    <StatsRakings titulo="Mejores Partidas" col1="Puntuacion" col2 ="tiempo jugado" modo = "raking"/>
+                    <StatsJugadores titulo="Ranking jugadores" col1="nombre" col2 ="total puntos"  modo = "jugadores"/>
                 </div>
-                
             </div>   
         
             
@@ -36,4 +36,7 @@ class Stats extends Component {
 
     
 }
+
+     
+
 export default Stats;
