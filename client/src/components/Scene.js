@@ -4,7 +4,7 @@ import store from '../store';
 import {markCell, unmarkCell, activateCell, setRemainingSecs, lostGame, playingGame} from '../actions/ActionCreatorScene'
 import './Scene.css';
 import { LOST,WIN, PLAYING, INIT } from '../reducers/Scene';
-import { isNull } from 'util';
+import { isNull, format } from 'util';
 
 
 
@@ -25,7 +25,8 @@ class Scene extends Component {
       remainingSecs:0,
       x:0,
       y:0,
-      func:""
+      func:"",
+      idUsuario:''
     }
     this.drawtable = this.drawtable.bind(this);
     this.markBomb = this.markBomb.bind(this);
@@ -209,6 +210,70 @@ class Scene extends Component {
   abandonarPartida(){
     store.dispatch(lostGame());
     this.props.history.push("/selectBoard");
+
+
+    var iduser = 77181305;
+    var estado = 1;
+    var tiempo = 23;
+    var dificultad = 1;
+    var tipoTablero=2;
+
+   var boardSize;
+   if(store.getState().SelectBoard.size == 'small')
+   {
+    boardSize = 1;
+   }else{
+    boardSize = 2;
+   }
+
+   var usuario = store.getState().User.user.username;
+   /*var idUs; 
+
+   fetch(`http://localhost:3000/api/users/getIdUsuario/${usuario}`)
+        .then(res => res.json())
+        .then(user => {
+          console.log(user[0]);
+        });*/
+
+
+
+    var request = require("request");
+
+    var options = { method: 'POST',
+      url: 'http://localhost:3000/api/users/guardarPartida',
+      headers: 
+       { 
+         'Content-Type': 'application/json' },
+      body: 
+       { iduser: '77181305',
+         estado: LOST,
+         tiempo: store.getState().Scene.remainingSecs,
+         dificultad: boardSize,
+         tipoTablero: boardSize },
+      json: true };
+    
+    request(options, function (error, response, body) {
+      if (error) throw new Error(error);
+    
+      console.log(body);
+    });
+    
+
+
+
+
+  
+  //fetch('/api/users/guardarPartida', request);
+
+    //fetch(`/api/users/guardarPartida/${iduser}`,{
+      //fetch(`/api/users/guardarPartida/${iduser}:${estado}:${tiempo}:${dificultad}:${tipoTablero}`,{
+      //fetch(`/api/users/guardarPartida${{'iduser' : '77181305','estado' : '1','tiempo' : '23','dificultad' : '1','tipoTablero' : '2'}}`,{
+        //fetch(`/api/users/guardarPartida/${'77181305'}`,{
+      //fetch('/api/users/guardarPartida','${iduser}:${estado}:${tiempo}:${dificultad}:${tipoTablero}',{
+     /* method: 'POST',
+      //headers: { 'Content-Type': 'application/json' }
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+      });*/
   }
 }
 export default withRouter(Scene);
@@ -256,4 +321,6 @@ class Counter extends Component {
       </span>
     )
   }
+
+
 }
