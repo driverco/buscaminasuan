@@ -227,17 +227,9 @@ class Scene extends Component {
    }
 
    var usuario = store.getState().User.user.username;
-   /*var idUs; 
+   var idUs = store.getState().User.user.Id;
 
-   fetch(`http://localhost:3000/api/users/getIdUsuario/${usuario}`)
-        .then(res => res.json())
-        .then(user => {
-          console.log(user[0]);
-        });*/
-
-
-
-    var request = require("request");
+  var request = require("request");
 
     var options = { method: 'POST',
       url: 'http://localhost:3000/api/users/guardarPartida',
@@ -245,7 +237,7 @@ class Scene extends Component {
        { 
          'Content-Type': 'application/json' },
       body: 
-       { iduser: '77181305',
+       { iduser: idUs,
          estado: LOST,
          tiempo: store.getState().Scene.remainingSecs,
          dificultad: boardSize,
@@ -300,7 +292,7 @@ class Counter extends Component {
     });
 
     this.interval = setInterval(() => {
-      console.log(this.state.remainingSecs)
+      //console.log(this.state.remainingSecs)
       if (this.state.remainingSecs -1 <= 0 ){
         store.dispatch(lostGame());
       }

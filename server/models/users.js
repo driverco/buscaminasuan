@@ -17,7 +17,7 @@ class Users {
     }
     static authUser(userName, passwd, callback){
         //console.log('Dentro de la consulta Auth >>>>> ' + userName);
-        db.query('select userName, email, age, avatar from users where userName = $1 and passwd = $2', [userName, passwd],function(err,resp){
+        db.query('select userName, email, age, avatar,"Id" from users where userName = $1 and passwd = $2', [userName, passwd],function(err,resp){
             if (err.error)
                 return callback(err);
             callback (resp);
