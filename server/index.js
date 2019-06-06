@@ -16,8 +16,8 @@ app.use('/api/users', require('./api/users'));
 app.use('/api/stats', require('./api/stats'));
 
 
-const crearUsuariosSQL = 'CREATE TABLE IF NOT EXISTS "users" ("Id" serial NOT NULL,  "username" character varying NOT NULL,  "email" character varying NOT NULL,  "passwd" character varying(256) NOT NULL,  "age" numeric NOT NULL,  "avatar" character varying(32) NOT NULL,  CONSTRAINT "users_pkey" PRIMARY KEY ("Id"))WITH (  OIDS=TRUE);ALTER TABLE "users" OWNER TO postgres;';
-const crearlogPartidasSQL = 'CREATE TABLE IF NOT EXISTS "log_partidas" ("Id_log" serial NOT NULL, id_usr serial NOT NULL, "login" character varying(20) NOT NULL, estado_partida integer NOT NULL, tiempo_jugado bigint, dificultad integer NOT NULL, tipo_tablero integer, fecha date NOT NULL, fin_partida integer NOT NULL DEFAULT 0, "puntuacion" bigint NOT NULL, CONSTRAINT "Log_partidas_pkey" PRIMARY KEY ("Id_log"), CONSTRAINT "log_partidas_id_usr_fkey" FOREIGN KEY (id_usr) REFERENCES "users" ("Id") MATCH FULL  ON UPDATE NO ACTION ON DELETE NO ACTION) WITH (OIDS=TRUE);ALTER TABLE "log_partidas" OWNER TO postgres;';
+const crearUsuariosSQL = 'CREATE TABLE IF NOT EXISTS "users" ("Id" serial NOT NULL,  "username" character varying NOT NULL,  "email" character varying NOT NULL,  "passwd" character varying(256) NOT NULL,  "age" numeric NOT NULL,  "avatar" character varying(32) NOT NULL,  CONSTRAINT "users_pkey" PRIMARY KEY ("Id"))WITH (  OIDS=TRUE);ALTER TABLE "users" OWNER TO mmghqjqteuawyt;';
+const crearlogPartidasSQL = 'CREATE TABLE IF NOT EXISTS "log_partidas" ("Id_log" serial NOT NULL, id_usr serial NOT NULL, "login" character varying(20) NOT NULL, estado_partida integer NOT NULL, tiempo_jugado bigint, dificultad integer NOT NULL, tipo_tablero integer, fecha date NOT NULL, fin_partida integer NOT NULL DEFAULT 0, "puntuacion" bigint NOT NULL, CONSTRAINT "Log_partidas_pkey" PRIMARY KEY ("Id_log"), CONSTRAINT "log_partidas_id_usr_fkey" FOREIGN KEY (id_usr) REFERENCES "users" ("Id") MATCH FULL  ON UPDATE NO ACTION ON DELETE NO ACTION) WITH (OIDS=TRUE);ALTER TABLE "log_partidas" OWNER TO mmghqjqteuawyt;';
 
 
 if (ENV === 'production') {

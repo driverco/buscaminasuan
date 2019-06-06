@@ -1,9 +1,13 @@
 var { Pool } = require('pg');
 
-const CONNECTION_STRING = process.env.DATABASE_URL || 'postgresql://postgres:Hranmc9bb8**@localhost:5432/buscaminasuan';
+//Conexion local
+//const CONNECTION_STRING = process.env.DATABASE_URL || 'postgresql://postgres:Hranmc9bb8**@localhost:5432/buscaminasuan';
+
+//Conexion Heroku
+const CONNECTION_STRING = process.env.DATABASE_URL || 'postgres://mmghqjqteuawyt:a965501d9a71f6d0c31f194d0a6c858d0ca51751cf477dde5dc20adab0907e53@ec2-54-163-230-199.compute-1.amazonaws.com:5432/dbni9feinhid75';
 
 //const SSL = process.env.NODE_ENV === 'production';
-const SSL = false;
+const SSL = true;
 
 class Database {
   constructor () {
