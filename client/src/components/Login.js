@@ -84,10 +84,10 @@ class Login extends Component {
                             <Col>
                               No tienes Usuario?&nbsp;<Link to="/registerUser" className="LinkTo">Registrate</Link>
                             </Col>
-                            <img src ="/img/sample1.PNG"  width="15%" alt="sample1"/>
                         </Row>
                     </div>
                     </InputGroup>
+                    <img src ="/img/sample1.PNG"  width="15%" alt="sample1"/>
                 </form>
 
             </div>
