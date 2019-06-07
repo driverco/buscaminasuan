@@ -48,7 +48,7 @@ class Login extends Component {
                 <form name="form" onSubmit={this.handleSubmit}>
                 <InputGroup>
                     <div className="loginForm">
-                        <Col span="2">Por favor ingresa tus datos:</Col>
+                        <Col span="text-center">Por favor ingresa tus datos:</Col>
                         <Row >
                             <Col><label  htmlFor="userName">Nombre del Jugador: </label></Col>
                             <Col>
@@ -65,6 +65,7 @@ class Login extends Component {
                         </Row>
                         <Row >
                             <Col><label htmlFor="password">Contraseña: </label></Col>
+                            <Col><label> "" </label></Col>
                             <Col>
                                 <Input type="password" placeholder="Password..."  name="password" value={this.state.password} onChange={this.handleChange} />
                             </Col>
@@ -83,6 +84,7 @@ class Login extends Component {
                             <Col>
                               No tienes Usuario?&nbsp;<Link to="/registerUser" className="LinkTo">Registrate</Link>
                             </Col>
+                            <img src ="/img/sample1.PNG"  width="15%" alt="sample1"/>
                         </Row>
                     </div>
                     </InputGroup>
